@@ -92,6 +92,82 @@ var SG_CONFIG = {
     if (next) next.addEventListener('click', function () { go(1); });
   })();
 
+  /* ---------- 4b. SCREENSHOT LIGHTBOX ----------
+     Click any screenshot for a full-size view, with keyboard/click nav
+     between all shots and Escape/backdrop to close. */
+  (function lightbox() {
+    var box = $('#lightbox');
+    if (!box) return;
+    var cards = $$('.shot');
+    if (!cards.length) return;
+
+    var img = $('#lightboxImg', box);
+    var stateEl = $('#lightboxState', box);
+    var numEl = $('#lightboxNum', box);
+    var closeBtn = $('#lightboxClose', box);
+    var prevBtn = $('#lightboxPrev', box);
+    var nextBtn = $('#lightboxNext', box);
+    var lastFocused = null;
+    var index = 0;
+
+    var items = cards.map(function (card) {
+      var btn = $('.shot-img-btn', card);
+      var image = $('img', card);
+      var state = $('.shot-state', card);
+      return {
+        btn: btn,
+        src: image.getAttribute('src'),
+        alt: image.getAttribute('alt') || '',
+        stateHTML: state ? state.innerHTML : '',
+        stateClass: (state && state.className) || 'shot-state',
+        num: ($('.shot-num', card) || {}).textContent || ''
+      };
+    });
+
+    var render = function () {
+      var it = items[index];
+      img.src = it.src;
+      img.alt = it.alt;
+      stateEl.className = it.stateClass;
+      stateEl.innerHTML = it.stateHTML;
+      numEl.textContent = it.num;
+    };
+
+    var open = function (i) {
+      index = i;
+      lastFocused = document.activeElement;
+      render();
+      box.classList.add('is-open');
+      box.setAttribute('aria-hidden', 'false');
+      closeBtn.focus();
+      document.body.style.overflow = 'hidden';
+    };
+    var close = function () {
+      box.classList.remove('is-open');
+      box.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    };
+    var step = function (dir) {
+      index = (index + dir + items.length) % items.length;
+      render();
+    };
+
+    items.forEach(function (it, i) {
+      if (it.btn) it.btn.addEventListener('click', function () { open(i); });
+    });
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', function () { step(-1); });
+    nextBtn.addEventListener('click', function () { step(1); });
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!box.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === 'ArrowRight') step(1);
+    });
+  })();
+
   /* ---------- 5. FEEDBACK ---------- */
   (function feedback() {
     var toggle = $('#fbToggle'), panel = $('#fbPanel'), close = $('#fbClose');

@@ -280,7 +280,22 @@ svg { display: block; }
 .shot-state.is-warn { color: var(--warn); }
 .shot-state.is-danger { color: var(--danger); }
 .shot-num { font-size: 11.5px; color: var(--text-faint); }
-.shot img { display: block; width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius-sm); background: var(--bg-band); }
+
+.shot-img-btn {
+  display: block; position: relative; width: 100%; padding: 0; margin: 0;
+  border: none; background: none; cursor: zoom-in; -webkit-tap-highlight-color: transparent;
+}
+.shot-img-btn img { display: block; width: 100%; height: 300px; object-fit: cover; border-radius: var(--radius-sm); background: var(--bg-band); }
+.shot-expand-icon {
+  position: absolute; top: 10px; right: 10px; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+  background: rgba(11,17,32,.78); border: 1px solid var(--line); color: var(--text);
+  opacity: 0; transform: translateY(-2px); transition: opacity .15s ease, transform .15s ease, border-color .15s ease, color .15s ease;
+}
+.shot-img-btn:hover .shot-expand-icon,
+.shot-img-btn:focus-visible .shot-expand-icon { opacity: 1; transform: translateY(0); }
+.shot-img-btn:hover img { filter: brightness(1.06); }
+.shot-img-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .shots-nav {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
@@ -292,6 +307,31 @@ svg { display: block; }
 .shots-nav:hover { border-color: var(--accent); color: var(--accent-hi); }
 .shots-nav.prev { left: -18px; }
 .shots-nav.next { right: -18px; }
+
+/* ---------- 8b. SCREENSHOT LIGHTBOX ---------- */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 120;
+  background: rgba(6,9,17,.92); backdrop-filter: blur(6px);
+  padding: 64px 88px; align-items: center; justify-content: center;
+}
+.lightbox.is-open { display: flex; }
+.lightbox-stage { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: min(1100px, 100%); max-height: 100%; margin: 0; }
+.lightbox-stage img {
+  display: block; max-width: 100%; max-height: calc(100vh - 160px); width: auto; height: auto;
+  border-radius: var(--radius); border: 1px solid var(--line-strong); box-shadow: var(--shadow-lg); background: var(--bg-band);
+}
+.lightbox-caption { display: flex; align-items: center; gap: 14px; }
+.lightbox-caption .shot-num { font-size: 11.5px; color: var(--text-faint); }
+.lightbox-close, .lightbox-nav {
+  position: fixed; z-index: 5; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid var(--line); background: rgba(11,17,32,.9);
+  backdrop-filter: blur(8px); color: var(--text); cursor: pointer; box-shadow: var(--shadow);
+}
+.lightbox-close:hover, .lightbox-nav:hover { border-color: var(--accent); color: var(--accent-hi); }
+.lightbox-close { top: 24px; right: 24px; width: 40px; height: 40px; }
+.lightbox-nav { top: 50%; transform: translateY(-50%); width: 48px; height: 48px; }
+.lightbox-nav.prev { left: 24px; }
+.lightbox-nav.next { right: 24px; }
 
 /* ---------- 9. VIDEOS ---------- */
 #videos { margin-top: var(--section-y); scroll-margin-top: 64px; }
@@ -480,7 +520,15 @@ html[data-reveal-on] [data-reveal].in { opacity: 1; transform: none; }
   .shots-nav.prev { left: 6px; }
   .shots-nav.next { right: 6px; }
   .shot { flex: 0 0 100%; }
-  .shot img { height: 200px; }
+  .shot-img-btn img { height: 200px; }
+  .shot-expand-icon { opacity: 1; transform: none; } /* no hover on touch — show it plainly */
+
+  .lightbox { padding: 76px 16px 24px; }
+  .lightbox-close { top: 12px; right: 12px; width: 36px; height: 36px; }
+  .lightbox-nav { width: 40px; height: 40px; }
+  .lightbox-nav.prev { left: 8px; }
+  .lightbox-nav.next { right: 8px; }
+  .lightbox-stage img { max-height: calc(100vh - 200px); }
 
   #footer .wrap { flex-wrap: wrap; gap: 16px; }
 }
