@@ -36,6 +36,7 @@
 
   /* type */
   --font: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", Consolas, "Liberation Mono", Menlo, monospace;
 
   /* rhythm — 12-col grid, 24px gutter, 1296px max, 72px page margin */
   --maxw: 1296px;
@@ -201,11 +202,6 @@ svg { display: block; }
 .status-name.is-ok { color: var(--ok); }
 .status-name.is-warn { color: var(--warn); }
 .status-name.is-danger { color: var(--danger); }
-.status-foot { margin-top: var(--gutter); padding-top: 16px; border-top: 1px solid var(--line); }
-.status-foot .in-ok { color: var(--ok); }
-.status-foot .in-warn { color: var(--warn); }
-.status-foot .in-danger { color: var(--danger); }
-.status-foot .out { color: var(--text); }
 
 .col-4 { grid-column: span 4; }
 .col-6 { grid-column: span 6; }
@@ -232,7 +228,7 @@ svg { display: block; }
 .layer.is-decision { border-color: rgba(14,165,233,.4); }
 .layer-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
 .layer-head .name { font-size: 12px; letter-spacing: .18em; color: var(--accent); }
-.layer-head .note { font-size: 12px; color: var(--text-muted); }
+.layer-head .note { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
 .layer-head .note.is-accent { color: var(--accent); }
 .arrow { display: flex; justify-content: center; padding: 8px 0; color: var(--line); font-size: 15px; }
 
@@ -241,11 +237,13 @@ svg { display: block; }
 .tick { border-left: 2px solid var(--line); padding-left: 16px; }
 .tick-title { display: block; font-size: 15px; font-weight: 500; color: var(--text-strong); margin-bottom: 7px; }
 .hl { color: var(--text-strong); font-style: normal; }
+.code { font-family: var(--font-mono); font-size: .93em; }
 
 .event-table { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; }
 .event-row { display: grid; grid-template-columns: 200px 1fr; column-gap: var(--gutter); background: var(--surface-2); padding: 16px; }
 .event-row dt { font-size: 13px; margin: 0; }
 .event-row dd { font-size: 13px; line-height: 20px; font-weight: 300; color: var(--text-muted); margin: 0; }
+.event-row dd .hl { color: inherit; font-weight: inherit; }
 .event-row dt.is-none { color: var(--text); }
 .event-row dt.is-warn { color: var(--warn); }
 .event-row dt.is-observer { color: var(--observer); }

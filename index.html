@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SentinelGuard — continuous authentication for the untrusted workspace</title>
-<meta name="description" content="SentinelGuard is a Windows agent that verifies who is sitting at the machine every few seconds — on-device, no network, no cloud.">
+<title>SentinelGuard - continuous authentication for the untrusted workspace</title>
+<meta name="description" content="SentinelGuard is a Windows agent that verifies who is sitting at the machine every few seconds - on-device, no network, no cloud.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 <body>
 
 <!-- ============================================================
-     NAV — sticky on desktop, floating pill + drawer on phone
+     NAV - sticky on desktop, floating pill + drawer on phone
      ============================================================ -->
 <div id="nav">
   <div class="wrap">
@@ -63,7 +63,7 @@
 
     <h1 data-reveal>Watchdog for the untrusted workspace.</h1>
 
-    <p class="hero-copy" data-reveal>SentinelGuard is a Windows agent that verifies who is sitting in front of the machine every few seconds — on-device, with no network and no cloud. When verification fails, the screen protects itself: it contains, alerts, and escalates to the real OS lock.</p>
+    <p class="hero-copy" data-reveal>SentinelGuard is a Windows agent that verifies who is sitting in front of the machine every few seconds - on-device, with no network and no cloud. When verification fails, the screen protects itself: it contains, alerts, and escalates to the real OS lock.</p>
 
     <div class="hero-actions" data-reveal>
       <a class="btn btn-accent" href="#videos">
@@ -106,7 +106,7 @@
 </div>
 
 <!-- ============================================================
-     OVERVIEW — exposure cases · statuses · architecture · screenshots
+     OVERVIEW - exposure cases · statuses · architecture · screenshots
      ============================================================ -->
 <div id="overview" class="section wrap">
 
@@ -120,7 +120,7 @@
     <div class="card card-topline is-warn col-4">
       <div class="card-num is-warn">01 &nbsp;ABSENCE</div>
       <div class="card-title">You step away from the desk.</div>
-      <p class="body-sm">Windows minimise, the desktop disappears, input is absorbed — and it lifts itself the instant your face returns.</p>
+      <p class="body-sm">Windows minimise, the desktop disappears, input is absorbed - and it lifts itself the instant your face returns.</p>
     </div>
     <div class="card card-topline is-observer col-4">
       <div class="card-num is-observer">02 &nbsp;OBSERVER</div>
@@ -139,23 +139,20 @@
     <span class="label">THE THREE STATUSES</span>
     <span class="rule"></span>
   </div>
-  <p class="lede prose-narrow" style="margin-bottom:26px;">The agent is always in exactly one status, and the status is what the operator sees on the dashboard. Escalation is one-way — you never skip a step — but recovery is automatic wherever it is safe to be automatic. The order is SCANNING → PRIVACYMODE → LOCKDOWN.</p>
+  <p class="lede prose-narrow" style="margin-bottom:26px;">The agent is always in exactly one status, and the status is what the operator sees on the dashboard. Escalation is one-way - you never skip a step - but recovery is automatic wherever it is safe to be automatic. The order is SCANNING → PRIVACYMODE → LOCKDOWN.</p>
 
   <div class="grid12" style="align-items:stretch;" data-reveal>
     <div class="card card-topline is-ok col-4">
       <div class="status-name is-ok">SCANNING</div>
-      <p class="body-sm">The normal, working status. The enrolled user has been matched in the last verification pass and the trusted anchor is in range, so nothing is hidden and nothing is blocked — the agent simply keeps checking in the background.</p>
-      <p class="meta status-foot"><span class="in-ok">Entered</span> on a verified match · <span class="in-ok">Left</span> when a verification pass fails</p>
+      <p class="body-sm">The normal, working status. The enrolled user has been matched in the last verification pass and the trusted anchor is in range, so nothing is hidden and nothing is blocked - the agent simply keeps checking in the background.</p>
     </div>
     <div class="card card-topline is-warn col-4">
       <div class="status-name is-warn">PRIVACYMODE</div>
       <p class="body-sm">Containment inside the application layer: the work is covered but the session stays alive. Nothing is closed, nothing is lost, and the agent keeps watching for the enrolled face so it can hand the desk straight back.</p>
-      <p class="meta status-foot"><span class="in-warn">Entered</span> on absence or an unrecognised face · <span class="in-ok">Left</span> automatically when the user is verified again</p>
     </div>
     <div class="card card-topline is-danger col-4">
       <div class="status-name is-danger">LOCKDOWN</div>
       <p class="body-sm">The last status, and the only one the agent cannot undo. Containment is handed to the operating system lock, so the desk is protected even if the agent, the camera or the machine's power state changes.</p>
-      <p class="meta status-foot"><span class="in-danger">Entered</span> when the machine leaves its trusted place unattended · <span class="out">Left</span> only by signing in</p>
     </div>
   </div>
 
@@ -163,7 +160,7 @@
   <div class="arch">
     <button class="arch-toggle" id="archToggle" type="button" aria-expanded="false" aria-controls="archPanel">
       <span>
-        <span class="arch-toggle-title">How it decides — the four-layer architecture</span>
+        <span class="arch-toggle-title">How it decides - the four-layer architecture</span>
         <span class="arch-toggle-sub">Sensors publish facts, a classifier names them, one pure function holds the whole policy.</span>
       </span>
       <span class="arch-toggle-state"><span class="arch-toggle-label">SHOW MORE</span><span class="caret">+</span></span>
@@ -176,11 +173,11 @@
         <div class="split-2">
           <div class="tick">
             <span class="tick-title">MonitoringService</span>
-            <p class="body-sm">Camera frames, face detection, then a 512-D embedding compared against the enrolled user. Publishes <span class="hl">authorized_user</span>.</p>
+            <p class="body-sm">Camera frames, face detection, then a 512-D embedding compared against the enrolled user. Publishes <span class="hl code">authorized_user</span>.</p>
           </div>
           <div class="tick">
             <span class="tick-title">TrustedNodeService</span>
-            <p class="body-sm">A trusted beacon in the room, matched on its identifier and signal strength. Publishes <span class="hl">node_signal</span>.</p>
+            <p class="body-sm">A trusted beacon in the room, matched on its identifier and signal strength. Publishes <span class="hl code">node_signal</span>.</p>
           </div>
         </div>
       </div>
@@ -191,12 +188,12 @@
         <div class="layer-head"><span class="name">LAYER 2 &nbsp;·&nbsp; EVENT SERVICE</span><span class="note">classifies, never judges</span></div>
         <dl class="event-table">
           <div class="event-row"><dt class="is-none">NONE</dt><dd>Nothing is wrong: the enrolled user is matched, no other face is in frame, and the anchor is in range.</dd></div>
-          <div class="event-row"><dt class="is-warn">ON_USER_ABSENT</dt><dd>The enrolled face has not been matched for the length of the absence timer — the seat is empty, or whoever is in it is not the user.</dd></div>
+          <div class="event-row"><dt class="is-warn">ON_USER_ABSENT</dt><dd>The enrolled face has not been matched for the length of the absence timer - the seat is empty, or whoever is in it is not the user.</dd></div>
           <div class="event-row"><dt class="is-observer">ON_OBSERVER</dt><dd>A second face is in frame <em class="hl">alongside</em> the verified user and stays there for three continuous seconds. Someone glancing past never crosses the threshold.</dd></div>
-          <div class="event-row"><dt class="is-warn">ON_NODE_LOSS</dt><dd>The trusted anchor has missed two consecutive scan passes — roughly twelve seconds — so the machine is no longer in the room it is supposed to be in.</dd></div>
-          <div class="event-row"><dt class="is-danger">ON_UNSECURE_ENV</dt><dd>An unrecognised face is at the machine with <em class="hl">no</em> verified user present. Not an onlooker — someone using the desk.</dd></div>
+          <div class="event-row"><dt class="is-warn">ON_NODE_LOSS</dt><dd>The trusted anchor has missed two consecutive scan passes - roughly twelve seconds - so the machine is no longer in the room it is supposed to be in.</dd></div>
+          <div class="event-row"><dt class="is-danger">ON_UNSECURE_ENV</dt><dd>An unrecognised face is at the machine with <em class="hl">no</em> verified user present. Not an onlooker - someone using the desk.</dd></div>
         </dl>
-        <p class="meta" style="margin-top:14px; font-weight:300;">Every event is debounced before it is raised, so a dropped frame or a moment of bad light never triggers anything. The result is a set, not a value — several events can be true in the same pass, and Sentinel resolves them by priority.</p>
+        <p class="meta" style="margin-top:14px; font-weight:300;">Every event is debounced before it is raised, so a dropped frame or a moment of bad light never triggers anything. The result is a set, not a value - several events can be true in the same pass, and Sentinel resolves them by priority.</p>
       </div>
 
       <div class="arrow" aria-hidden="true">↓</div>
@@ -214,7 +211,7 @@
         <div class="split-3">
           <div class="tick">
             <span class="tick-title">Notify</span>
-            <p class="body-sm">Raises an on-screen warning naming what was seen and writes a timestamped entry to the audit log. Nothing on the desk changes — this is the action for things the user should know about but does not need protecting from.</p>
+            <p class="body-sm">Raises an on-screen warning naming what was seen and writes a timestamped entry to the audit log. Nothing on the desk changes - this is the action for things the user should know about but does not need protecting from.</p>
           </div>
           <div class="tick">
             <span class="tick-title">Contain</span>
@@ -222,7 +219,7 @@
           </div>
           <div class="tick">
             <span class="tick-title">Lock</span>
-            <p class="body-sm">Hands the screen to the operating system's own lock. The agent stops being the thing standing in the way, which means the protection survives the agent being killed — and only a real sign-in returns the desk.</p>
+            <p class="body-sm">Hands the screen to the operating system's own lock. The agent stops being the thing standing in the way, which means the protection survives the agent being killed - and only a real sign-in returns the desk.</p>
           </div>
         </div>
       </div>
@@ -301,7 +298,7 @@
 </div>
 
 <!-- ============================================================
-     SCREENSHOT LIGHTBOX — expanded view, populated by js/main.js
+     SCREENSHOT LIGHTBOX - expanded view, populated by js/main.js
      ============================================================ -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer" aria-hidden="true">
   <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close expanded view">
@@ -323,7 +320,7 @@
 </div>
 
 <!-- ============================================================
-     VIDEOS — local MP4s in assets/videos/
+     VIDEOS - local MP4s in assets/videos/
      ============================================================ -->
 <div id="videos" class="band">
   <div class="wrap">
@@ -332,7 +329,7 @@
         <div class="eyebrow"><span class="dash"></span><span class="label">RECORDED DEMOS</span></div>
         <h2>Watch the system react.</h2>
       </div>
-      <p class="lede head-right">Each clip runs a single failure condition end to end — the trigger, the containment, and the recovery.</p>
+      <p class="lede head-right">Each clip runs a single failure condition end to end - the trigger, the containment, and the recovery.</p>
     </div>
 
     <div class="video-list">
@@ -347,7 +344,7 @@
         <div class="video-copy">
           <div class="video-num">01</div>
           <div class="video-title">Full system walkthrough</div>
-          <p class="body-sm">Enrolment, the secured dashboard, and each of the three exposure cases in sequence — the fastest way to see what the agent does.</p>
+          <p class="body-sm">Enrolment, the secured dashboard, and each of the three exposure cases in sequence - the fastest way to see what the agent does.</p>
           <div class="video-tags"><span class="chip">OVERVIEW</span><span class="chip">≈ 6 min</span></div>
         </div>
       </div>
@@ -392,7 +389,7 @@
         <div class="video-copy">
           <div class="video-num">04</div>
           <div class="video-title">Intruder detection</div>
-          <p class="body-sm">An unrecognised face at the machine with no authorized user present — the environment is unsecure, so containment escalates rather than waiting.</p>
+          <p class="body-sm">An unrecognised face at the machine with no authorized user present - the environment is unsecure, so containment escalates rather than waiting.</p>
           <div class="video-tags"><span class="chip">ON_UNSECURE_ENV</span><span class="chip">≈ 2 min</span></div>
         </div>
       </div>
@@ -407,7 +404,7 @@
         <div class="video-copy">
           <div class="video-num">05</div>
           <div class="video-title">Trusted node lost</div>
-          <p class="body-sm">Walking the trusted anchor out of range with nobody verified hands the screen to the real Windows lock — credentials only.</p>
+          <p class="body-sm">Walking the trusted anchor out of range with nobody verified hands the screen to the real Windows lock - credentials only.</p>
           <div class="video-tags"><span class="chip">ON_NODE_LOSS</span><span class="chip">≈ 2 min</span></div>
         </div>
       </div>
@@ -480,7 +477,7 @@
             <div class="member-role">FACE RECOGNITION · INTERFACE</div>
           </div>
         </div>
-        <p class="body-sm">Owned the face-recognition pipeline end to end — enrolment, continuous verification, and the similarity thresholds and absence timing that govern it — and built the operator interface shown here. Co-designed the system's block-based architecture.</p>
+        <p class="body-sm">Owned the face-recognition pipeline end to end - enrolment, continuous verification, and the similarity thresholds and absence timing that govern it - and built the operator interface shown here. Co-designed the system's block-based architecture.</p>
         <div class="member-links">
           <a class="btn btn-sm btn-accent" href="mailto:REPLACE@example.com">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"></rect><path d="m2 4.5 6 4 6-4"></path></svg>Email</a>
@@ -499,7 +496,7 @@
             <div class="member-role">TRUSTED NODE · HARDWARE</div>
           </div>
         </div>
-        <p class="body-sm">Owned the trusted-node subsystem end to end — the ESP32 firmware, hardware assembly, and a custom 3D-printed enclosure — and implemented the BLE communication and proximity logic linking the node to the system. Co-designed the system's block-based architecture.</p>
+        <p class="body-sm">Owned the trusted-node subsystem end to end - the ESP32 firmware, hardware assembly, and a custom 3D-printed enclosure - and implemented the BLE communication and proximity logic linking the node to the system. Co-designed the system's block-based architecture.</p>
         <div class="member-links">
           <a class="btn btn-sm btn-accent" href="mailto:REPLACE@example.com">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"></rect><path d="m2 4.5 6 4 6-4"></path></svg>Email</a>
@@ -529,7 +526,7 @@
 </div>
 
 <!-- ============================================================
-     FEEDBACK — floating button + panel
+     FEEDBACK - floating button + panel
      Delivery is configured in js/main.js (SG_CONFIG).
      ============================================================ -->
 <div id="feedback">
@@ -546,7 +543,7 @@
 
     <div class="fb-thanks" id="fbThanks">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-      <div class="head">Thanks — that helps.</div>
+      <div class="head">Thanks - that helps.</div>
       <div class="sub">Your note reached the team. Close this panel to keep browsing.</div>
     </div>
 
@@ -573,7 +570,7 @@
 </div>
 
 <!-- ============================================================
-     GRID OVERLAY — design aid. Delete this block and .grid-* CSS
+     GRID OVERLAY - design aid. Delete this block and .grid-* CSS
      before the production deploy if you don't want it shipped.
      ============================================================ -->
 <div class="grid-overlay" id="gridOverlay" aria-hidden="true">
