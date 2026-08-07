@@ -343,7 +343,7 @@ svg { display: block; }
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius); overflow: hidden;
 }
-.video-frame video,
+.video-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #000; }
 .video-copy { grid-column: 9 / span 4; }
 .video-num { font-size: 12px; letter-spacing: .2em; color: var(--accent); margin-bottom: 14px; }
