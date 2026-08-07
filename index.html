@@ -1,6 +1,552 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>This is my site</title>
-    </head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SentinelGuard — continuous authentication for the untrusted workspace</title>
+<meta name="description" content="SentinelGuard is a Windows agent that verifies who is sitting at the machine every few seconds — on-device, no network, no cloud.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============================================================
+     NAV — sticky on desktop, floating pill + drawer on phone
+     ============================================================ -->
+<div id="nav">
+  <div class="wrap">
+    <a class="nav-brand" href="#hero">
+      <svg width="19" height="22" viewBox="0 0 24 28" fill="none" stroke="#0EA5E9" stroke-width="1.7" aria-hidden="true"><path d="M12 1.5 22 5v9c0 6.2-4.2 10.6-10 12.5C6.2 24.6 2 20.2 2 14V5l10-3.5Z"></path><path d="M8 13.6l2.9 2.9L16.4 11" stroke-linecap="round"></path></svg>
+      <span>SENTINELGUARD</span>
+    </a>
+
+    <button class="nav-menu-btn" id="navMenuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navDrawer">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path class="icon-open" d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"></path>
+        <path class="icon-close" d="M4 4l8 8M12 4l-8 8"></path>
+      </svg>
+    </button>
+
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#videos">Demo</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#team">Team</a>
+      <a class="nav-poster" href="assets/poster/sentinelguard-poster.pdf" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 12.5h11"></path></svg>Poster PDF</a>
+    </div>
+
+    <div class="nav-drawer" id="navDrawer">
+      <a href="#overview">Overview</a>
+      <a href="#videos">Demo</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#team">Team</a>
+      <a class="nav-poster" href="assets/poster/sentinelguard-poster.pdf" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 12.5h11"></path></svg>Poster PDF</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<div id="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap grid12">
+    <div class="hero-kicker" data-reveal>
+      <span class="dash"></span>
+      <span class="label">CONTINUOUS AUTHENTICATION</span>
+    </div>
+
+    <h1 data-reveal>Watchdog for the untrusted workspace.</h1>
+
+    <p class="hero-copy" data-reveal>SentinelGuard is a Windows agent that verifies who is sitting in front of the machine every few seconds — on-device, with no network and no cloud. When verification fails, the screen protects itself: it contains, alerts, and escalates to the real OS lock.</p>
+
+    <div class="hero-actions" data-reveal>
+      <a class="btn btn-accent" href="#videos">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 1.5 12 7l-9 5.5V1.5Z"></path></svg>Watch the demos</a>
+      <a class="btn" href="#team">Developers &amp; contact</a>
+    </div>
+
+    <div class="hero-art" data-reveal>
+      <div class="hero-art-stage">
+        <div class="hero-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+        <svg viewBox="0 0 340 210" fill="none" stroke-linejoin="round" stroke-linecap="round" aria-label="Isometric laptop with a trusted node radiating signal">
+          <g transform="translate(-26,0)">
+            <path d="M96 126v7l110 55 72-36v-7" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M168 90 278 145 206 181 96 126Z" fill="#111827" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M170.4 102 254 143.8 220.2 160.7 136.6 118.9Z" fill="#0d1524" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M160.8 135.4 187.2 148.6 171.4 156.5 145 143.3Z" fill="#0B1120" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M168 90 278 145 296 61 186 6Z" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M174.6 86.8 273.9 136.5 289.4 64.2 190.1 14.5Z" fill="#0B1120" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M196 22 256 52 253.9 61.8 193.9 31.8Z" fill="#16A34A" opacity=".2"></path>
+            <path d="M196 22 256 52" stroke="#16A34A" stroke-width="1.4" opacity=".85"></path>
+            <path d="M199 46 249 71" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M199 57 235 75" stroke="#1b2436" stroke-width="1.2"></path>
+          </g>
+          <g transform="translate(22,14)">
+            <path d="M272 132 302 147 282 157 252 142Z" fill="#131c2e" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M252 142 282 157 282 171 252 156Z" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M282 157 302 147 302 161 282 171Z" fill="#0B1120" stroke="#243044" stroke-width="1.2"></path>
+            <circle cx="277" cy="150" r="2.6" fill="#0EA5E9"></circle>
+            <path d="M272 132 259 120" stroke="#243044" stroke-width="1.2"></path>
+            <circle cx="258" cy="119" r="1.8" fill="#243044"></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="hero-art-legend">
+        <span class="verified">MACHINE · VERIFIED</span>
+        <span class="node">TRUSTED NODE</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     OVERVIEW — exposure cases · statuses · architecture · screenshots
+     ============================================================ -->
+<div id="overview" class="section wrap">
+
+  <!-- 3 exposure cases -->
+  <div class="rule-head">
+    <span class="label">THREE WAYS A WORKSTATION IS EXPOSED</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="grid12" data-reveal>
+    <div class="card card-topline is-warn col-4">
+      <div class="card-num is-warn">01 &nbsp;ABSENCE</div>
+      <div class="card-title">You step away from the desk.</div>
+      <p class="body-sm">Windows minimise, the desktop disappears, input is absorbed — and it lifts itself the instant your face returns.</p>
+    </div>
+    <div class="card card-topline is-observer col-4">
+      <div class="card-num is-observer">02 &nbsp;OBSERVER</div>
+      <div class="card-title">A second face reads your screen.</div>
+      <p class="body-sm">An unrecognised face held in frame for three seconds raises an alert and an audit entry. Flicker never counts.</p>
+    </div>
+    <div class="card card-topline is-danger col-4">
+      <div class="card-num is-danger">03 &nbsp;ENVIRONMENT</div>
+      <div class="card-title">The machine leaves its trusted room.</div>
+      <p class="body-sm">A trusted anchor geofences the hardware itself. Lose it with nobody verified and the real Windows lock takes over.</p>
+    </div>
+  </div>
+
+  <!-- 3 statuses -->
+  <div class="rule-head" style="margin-top:96px; margin-bottom:16px;">
+    <span class="label">THE THREE STATUSES</span>
+    <span class="rule"></span>
+  </div>
+  <p class="lede prose-narrow" style="margin-bottom:26px;">The agent is always in exactly one status, and the status is what the operator sees on the dashboard. Escalation is one-way — you never skip a step — but recovery is automatic wherever it is safe to be automatic. The order is SCANNING → PRIVACYMODE → LOCKDOWN.</p>
+
+  <div class="grid12" style="align-items:stretch;" data-reveal>
+    <div class="card card-topline is-ok col-4">
+      <div class="status-name is-ok">SCANNING</div>
+      <p class="body-sm">The normal, working status. The enrolled user has been matched in the last verification pass and the trusted anchor is in range, so nothing is hidden and nothing is blocked — the agent simply keeps checking in the background.</p>
+      <p class="meta status-foot"><span class="in-ok">Entered</span> on a verified match · <span class="in-ok">Left</span> when a verification pass fails</p>
+    </div>
+    <div class="card card-topline is-warn col-4">
+      <div class="status-name is-warn">PRIVACYMODE</div>
+      <p class="body-sm">Containment inside the application layer: the work is covered but the session stays alive. Nothing is closed, nothing is lost, and the agent keeps watching for the enrolled face so it can hand the desk straight back.</p>
+      <p class="meta status-foot"><span class="in-warn">Entered</span> on absence or an unrecognised face · <span class="in-ok">Left</span> automatically when the user is verified again</p>
+    </div>
+    <div class="card card-topline is-danger col-4">
+      <div class="status-name is-danger">LOCKDOWN</div>
+      <p class="body-sm">The last status, and the only one the agent cannot undo. Containment is handed to the operating system lock, so the desk is protected even if the agent, the camera or the machine's power state changes.</p>
+      <p class="meta status-foot"><span class="in-danger">Entered</span> when the machine leaves its trusted place unattended · <span class="out">Left</span> only by signing in</p>
+    </div>
+  </div>
+
+  <!-- architecture: expand / collapse -->
+  <div class="arch">
+    <button class="arch-toggle" id="archToggle" type="button" aria-expanded="false" aria-controls="archPanel">
+      <span>
+        <span class="arch-toggle-title">How it decides — the four-layer architecture</span>
+        <span class="arch-toggle-sub">Sensors publish facts, a classifier names them, one pure function holds the whole policy.</span>
+      </span>
+      <span class="arch-toggle-state"><span class="arch-toggle-label">SHOW MORE</span><span class="caret">+</span></span>
+    </button>
+
+    <div class="arch-panel" id="archPanel">
+
+      <div class="layer">
+        <div class="layer-head"><span class="name">LAYER 1 &nbsp;·&nbsp; SIGNALS</span><span class="note">senses, never judges</span></div>
+        <div class="split-2">
+          <div class="tick">
+            <span class="tick-title">MonitoringService</span>
+            <p class="body-sm">Camera frames, face detection, then a 512-D embedding compared against the enrolled user. Publishes <span class="hl">authorized_user</span>.</p>
+          </div>
+          <div class="tick">
+            <span class="tick-title">TrustedNodeService</span>
+            <p class="body-sm">A trusted beacon in the room, matched on its identifier and signal strength. Publishes <span class="hl">node_signal</span>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow" aria-hidden="true">↓</div>
+
+      <div class="layer">
+        <div class="layer-head"><span class="name">LAYER 2 &nbsp;·&nbsp; EVENT SERVICE</span><span class="note">classifies, never judges</span></div>
+        <dl class="event-table">
+          <div class="event-row"><dt class="is-none">NONE</dt><dd>Nothing is wrong: the enrolled user is matched, no other face is in frame, and the anchor is in range.</dd></div>
+          <div class="event-row"><dt class="is-warn">ON_USER_ABSENT</dt><dd>The enrolled face has not been matched for the length of the absence timer — the seat is empty, or whoever is in it is not the user.</dd></div>
+          <div class="event-row"><dt class="is-observer">ON_OBSERVER</dt><dd>A second face is in frame <em class="hl">alongside</em> the verified user and stays there for three continuous seconds. Someone glancing past never crosses the threshold.</dd></div>
+          <div class="event-row"><dt class="is-warn">ON_NODE_LOSS</dt><dd>The trusted anchor has missed two consecutive scan passes — roughly twelve seconds — so the machine is no longer in the room it is supposed to be in.</dd></div>
+          <div class="event-row"><dt class="is-danger">ON_UNSECURE_ENV</dt><dd>An unrecognised face is at the machine with <em class="hl">no</em> verified user present. Not an onlooker — someone using the desk.</dd></div>
+        </dl>
+        <p class="meta" style="margin-top:14px; font-weight:300;">Every event is debounced before it is raised, so a dropped frame or a moment of bad light never triggers anything. The result is a set, not a value — several events can be true in the same pass, and Sentinel resolves them by priority.</p>
+      </div>
+
+      <div class="arrow" aria-hidden="true">↓</div>
+
+      <div class="layer is-decision">
+        <div class="layer-head"><span class="name">LAYER 3 &nbsp;·&nbsp; SENTINEL</span><span class="note is-accent">the only decision maker</span></div>
+        <div class="decide-sig">decide(state, events) → (state, commands)</div>
+        <p class="body-sm">One pure function holds the priority order, the single configurable timer, and every escalation path.</p>
+      </div>
+
+      <div class="arrow" aria-hidden="true">↓</div>
+
+      <div class="layer">
+        <div class="layer-head"><span class="name">LAYER 4 &nbsp;·&nbsp; ACTIONS</span><span class="note">executes, never judges</span></div>
+        <div class="split-3">
+          <div class="tick">
+            <span class="tick-title">Notify</span>
+            <p class="body-sm">Raises an on-screen warning naming what was seen and writes a timestamped entry to the audit log. Nothing on the desk changes — this is the action for things the user should know about but does not need protecting from.</p>
+          </div>
+          <div class="tick">
+            <span class="tick-title">Contain</span>
+            <p class="body-sm">Minimises open windows, covers the desktop with an opaque overlay and absorbs keyboard and mouse input, so nothing can be read or typed. The session keeps running underneath and is handed back intact on the next verified match.</p>
+          </div>
+          <div class="tick">
+            <span class="tick-title">Lock</span>
+            <p class="body-sm">Hands the screen to the operating system's own lock. The agent stops being the thing standing in the way, which means the protection survives the agent being killed — and only a real sign-in returns the desk.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- screenshot rail -->
+  <div class="rule-head" style="margin-top:96px; margin-bottom:24px;">
+    <span class="label">IN OPERATION</span>
+    <span class="rule"></span>
+  </div>
+  <p class="lede" style="max-width:62ch; margin-bottom:24px;">Five states of the agent, as the operator sees them. Scroll sideways.</p>
+
+  <div class="shots-viewport">
+    <button class="shots-nav prev" id="shotsPrev" type="button" aria-label="Previous screenshot">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"></path></svg>
+    </button>
+    <button class="shots-nav next" id="shotsNext" type="button" aria-label="Next screenshot">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"></path></svg>
+    </button>
+
+    <div class="shots" id="shots" data-reveal>
+      <div class="shot">
+        <div class="shot-head">
+          <span class="shot-state is-ok"><span class="dot"></span>AUTHORIZED USER VERIFIED</span>
+          <span class="shot-num">01</span>
+        </div>
+        <img src="assets/screenshots/secure.png" alt="Dashboard showing the authorized user verified and the system scanning." loading="lazy">
+      </div>
+      <div class="shot">
+        <div class="shot-head">
+          <span class="shot-state is-observer"><span class="dot"></span>OBSERVER DETECTED</span>
+          <span class="shot-num">02</span>
+        </div>
+        <img src="assets/screenshots/observer.png" alt="Dashboard raising an observer-detected alert." loading="lazy">
+      </div>
+      <div class="shot">
+        <div class="shot-head">
+          <span class="shot-state is-accent"><span class="dot"></span>FRIENDLY FACE DETECTED</span>
+          <span class="shot-num">03</span>
+        </div>
+        <img src="assets/screenshots/friendly.png" alt="Dashboard showing a recognised friendly face alongside the user." loading="lazy">
+      </div>
+      <div class="shot">
+        <div class="shot-head">
+          <span class="shot-state is-warn"><span class="dot"></span>TRUSTED NODE LOST</span>
+          <span class="shot-num">04</span>
+        </div>
+        <img src="assets/screenshots/node_lost.png" alt="Dashboard reporting the trusted node out of range." loading="lazy">
+      </div>
+      <div class="shot">
+        <div class="shot-head">
+          <span class="shot-state is-danger"><span class="dot"></span>UNAUTHORIZED USER DETECTED</span>
+          <span class="shot-num">05</span>
+        </div>
+        <img src="assets/screenshots/unknown.png" alt="Dashboard entering lockdown after an unauthorized user was detected." loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     VIDEOS — local MP4s in assets/videos/
+     ============================================================ -->
+<div id="videos" class="band">
+  <div class="wrap">
+    <div class="grid12 videos-head">
+      <div class="head-left">
+        <div class="eyebrow"><span class="dash"></span><span class="label">RECORDED DEMOS</span></div>
+        <h2>Watch the system react.</h2>
+      </div>
+      <p class="lede head-right">Each clip runs a single failure condition end to end — the trigger, the containment, and the recovery.</p>
+    </div>
+
+    <div class="video-list">
+
+      <div class="grid12 video-row" data-reveal>
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="assets/videos/posters/01-walkthrough.jpg">
+            <source src="assets/videos/01-full-walkthrough.mp4" type="video/mp4">
+            Your browser cannot play this video. <a href="assets/videos/01-full-walkthrough.mp4">Download it instead.</a>
+          </video>
+        </div>
+        <div class="video-copy">
+          <div class="video-num">01</div>
+          <div class="video-title">Full system walkthrough</div>
+          <p class="body-sm">Enrolment, the secured dashboard, and each of the three exposure cases in sequence — the fastest way to see what the agent does.</p>
+          <div class="video-tags"><span class="chip">OVERVIEW</span><span class="chip">≈ 6 min</span></div>
+        </div>
+      </div>
+
+      <div class="grid12 video-row" data-reveal>
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="assets/videos/posters/02-absent.jpg">
+            <source src="assets/videos/02-user-absent.mp4" type="video/mp4">
+            Your browser cannot play this video. <a href="assets/videos/02-user-absent.mp4">Download it instead.</a>
+          </video>
+        </div>
+        <div class="video-copy">
+          <div class="video-num">02</div>
+          <div class="video-title">Authorized user absent</div>
+          <p class="body-sm">The verified user leaves the desk: windows minimise, the desktop is covered, input is absorbed. The camera lifts it the moment the face returns.</p>
+          <div class="video-tags"><span class="chip">ON_USER_ABSENT</span><span class="chip">≈ 2 min</span></div>
+        </div>
+      </div>
+
+      <div class="grid12 video-row" data-reveal>
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="assets/videos/posters/03-observer.jpg">
+            <source src="assets/videos/03-observer.mp4" type="video/mp4">
+            Your browser cannot play this video. <a href="assets/videos/03-observer.mp4">Download it instead.</a>
+          </video>
+        </div>
+        <div class="video-copy">
+          <div class="video-num">03</div>
+          <div class="video-title">Observer detection</div>
+          <p class="body-sm">A second, unrecognised face held in frame for three seconds raises the alert and writes the audit entry. Flicker never counts.</p>
+          <div class="video-tags"><span class="chip">ON_OBSERVER</span><span class="chip">≈ 2 min</span></div>
+        </div>
+      </div>
+
+      <div class="grid12 video-row" data-reveal>
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="assets/videos/posters/04-intruder.jpg">
+            <source src="assets/videos/04-intruder.mp4" type="video/mp4">
+            Your browser cannot play this video. <a href="assets/videos/04-intruder.mp4">Download it instead.</a>
+          </video>
+        </div>
+        <div class="video-copy">
+          <div class="video-num">04</div>
+          <div class="video-title">Intruder detection</div>
+          <p class="body-sm">An unrecognised face at the machine with no authorized user present — the environment is unsecure, so containment escalates rather than waiting.</p>
+          <div class="video-tags"><span class="chip">ON_UNSECURE_ENV</span><span class="chip">≈ 2 min</span></div>
+        </div>
+      </div>
+
+      <div class="grid12 video-row" data-reveal>
+        <div class="video-frame">
+          <video controls preload="metadata" playsinline poster="assets/videos/posters/05-node-lost.jpg">
+            <source src="assets/videos/05-trusted-node-lost.mp4" type="video/mp4">
+            Your browser cannot play this video. <a href="assets/videos/05-trusted-node-lost.mp4">Download it instead.</a>
+          </video>
+        </div>
+        <div class="video-copy">
+          <div class="video-num">05</div>
+          <div class="video-title">Trusted node lost</div>
+          <p class="body-sm">Walking the trusted anchor out of range with nobody verified hands the screen to the real Windows lock — credentials only.</p>
+          <div class="video-tags"><span class="chip">ON_NODE_LOSS</span><span class="chip">≈ 2 min</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
+<div id="timeline" class="section wrap">
+  <div class="eyebrow"><span class="dash"></span><span class="label">HOW IT WAS BUILT</span></div>
+  <h2>Three and a half months, five milestones.</h2>
+
+  <div class="timeline" data-reveal>
+    <div class="milestone is-first">
+      <span class="node"></span>
+      <div class="when">MAY 2026</div>
+      <div class="what">Threat model</div>
+      <p class="detail">Scoped the three exposure cases and settled on strictly on-device processing.</p>
+    </div>
+    <div class="milestone">
+      <span class="node"></span>
+      <div class="when">JUN 2026</div>
+      <div class="what">Face pipeline</div>
+      <p class="detail">Detection into embeddings, tuned for a similarity threshold that holds under real desk lighting.</p>
+    </div>
+    <div class="milestone">
+      <span class="node"></span>
+      <div class="when">JUL 2026</div>
+      <div class="what">Sentinel engine</div>
+      <p class="detail">Pulled every decision out of the sensors into one pure function with the state machine and its timers.</p>
+    </div>
+    <div class="milestone">
+      <span class="node"></span>
+      <div class="when">EARLY AUG 2026</div>
+      <div class="what">Trusted node</div>
+      <p class="detail">The trusted beacon and its signal debouncing, closing the geofence escalation into the OS lock.</p>
+    </div>
+    <div class="milestone">
+      <span class="node"></span>
+      <div class="when">MID AUG 2026</div>
+      <div class="what">Showcase build</div>
+      <p class="detail">Hardened the interface, wrote the audit log, and recorded the demo set on this page.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEAM
+     ============================================================ -->
+<div id="team" class="band">
+  <div class="wrap">
+    <div class="grid12 team-head">
+      <div class="head-left">
+        <div class="eyebrow"><span class="dash"></span><span class="label">THE DEVELOPERS</span></div>
+        <h2>Who built it.</h2>
+      </div>
+      <p class="lede head-right">Final-year engineering project · Humber College · 2026</p>
+    </div>
+
+    <div class="grid12">
+
+      <div class="member" data-reveal>
+        <div class="member-id">
+          <div class="member-photo"><img src="assets/team/rivaldo-fonkou.jpg" alt="Rivaldo Fonkou"></div>
+          <div>
+            <div class="member-name">Rivaldo Fonkou</div>
+            <div class="member-role">FACE RECOGNITION · INTERFACE</div>
+          </div>
+        </div>
+        <p class="body-sm">Owned the face-recognition pipeline end to end — enrolment, continuous verification, and the similarity thresholds and absence timing that govern it — and built the operator interface shown here. Co-designed the system's block-based architecture.</p>
+        <div class="member-links">
+          <a class="btn btn-sm btn-accent" href="mailto:REPLACE@example.com">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"></rect><path d="m2 4.5 6 4 6-4"></path></svg>Email</a>
+          <a class="btn btn-sm" href="https://www.linkedin.com/in/REPLACE" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.4 5.6H1.2V14h2.2V5.6ZM2.3 1.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6ZM14.8 9.3c0-2.3-1.2-3.9-3.2-3.9-1.1 0-1.8.6-2.1 1.2V5.6H7.3V14h2.2V9.5c0-1.1.5-1.8 1.4-1.8.9 0 1.3.7 1.3 1.8V14h2.6V9.3Z"></path></svg>LinkedIn</a>
+          <a class="btn btn-sm" href="assets/resumes/rivaldo-fonkou-resume.pdf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 13.5h11"></path></svg>Résumé</a>
+        </div>
+      </div>
+
+      <div class="member" data-reveal>
+        <div class="member-id">
+          <div class="member-photo"><img src="assets/team/hsuming-chien.jpg" alt="HsuMing Chien"></div>
+          <div>
+            <div class="member-name">HsuMing Chien</div>
+            <div class="member-role">TRUSTED NODE · HARDWARE</div>
+          </div>
+        </div>
+        <p class="body-sm">Owned the trusted-node subsystem end to end — the ESP32 firmware, hardware assembly, and a custom 3D-printed enclosure — and implemented the BLE communication and proximity logic linking the node to the system. Co-designed the system's block-based architecture.</p>
+        <div class="member-links">
+          <a class="btn btn-sm btn-accent" href="mailto:REPLACE@example.com">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"></rect><path d="m2 4.5 6 4 6-4"></path></svg>Email</a>
+          <a class="btn btn-sm" href="https://www.linkedin.com/in/REPLACE" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.4 5.6H1.2V14h2.2V5.6ZM2.3 1.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6ZM14.8 9.3c0-2.3-1.2-3.9-3.2-3.9-1.1 0-1.8.6-2.1 1.2V5.6H7.3V14h2.2V9.5c0-1.1.5-1.8 1.4-1.8.9 0 1.3.7 1.3 1.8V14h2.6V9.3Z"></path></svg>LinkedIn</a>
+          <a class="btn btn-sm" href="assets/resumes/hsuming-chien-resume.pdf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 13.5h11"></path></svg>Résumé</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<div id="footer">
+  <div class="wrap">
+    <div class="footer-mark">
+      <svg width="16" height="19" viewBox="0 0 24 28" fill="none" stroke="#334155" stroke-width="1.7" aria-hidden="true"><path d="M12 1.5 22 5v9c0 6.2-4.2 10.6-10 12.5C6.2 24.6 2 20.2 2 14V5l10-3.5Z"></path></svg>
+      <span>SENTINELGUARD · 2026</span>
+    </div>
+    <a class="btn btn-sm btn-accent" href="#hero">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13.5V3m0 0 4 4M8 3 4 7"></path></svg>Back to top</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     FEEDBACK — floating button + panel
+     Delivery is configured in js/main.js (SG_CONFIG).
+     ============================================================ -->
+<div id="feedback">
+  <div class="fb-panel" id="fbPanel" role="dialog" aria-label="Leave feedback" aria-hidden="true">
+    <div class="fb-panel-head">
+      <div>
+        <div class="fb-kicker">FEEDBACK</div>
+        <div class="fb-title">Tell us what you think</div>
+      </div>
+      <button class="fb-close" id="fbClose" type="button" aria-label="Close feedback">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"></path></svg>
+      </button>
+    </div>
+
+    <div class="fb-thanks" id="fbThanks">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+      <div class="head">Thanks — that helps.</div>
+      <div class="sub">Your note reached the team. Close this panel to keep browsing.</div>
+    </div>
+
+    <form class="fb-form" id="fbForm">
+      <div>
+        <div class="fb-legend" id="fbLegend">HOW DID IT READ?</div>
+        <div class="fb-ratings" role="group" aria-labelledby="fbLegend">
+          <button class="fb-rating" type="button" aria-pressed="false" data-rating="Impressive">Impressive</button>
+          <button class="fb-rating" type="button" aria-pressed="false" data-rating="Clear">Clear</button>
+          <button class="fb-rating" type="button" aria-pressed="false" data-rating="Confusing">Confusing</button>
+        </div>
+      </div>
+      <textarea id="fbMessage" rows="4" placeholder="What stood out, what was unclear, what you'd want to see next…"></textarea>
+      <input id="fbEmail" type="email" placeholder="Email (optional, if you'd like a reply)">
+      <div class="fb-error" id="fbError"></div>
+      <button class="fb-submit" id="fbSubmit" type="submit">SEND FEEDBACK</button>
+      <div class="fb-hint" id="fbHint"></div>
+    </form>
+  </div>
+
+  <button class="fb-btn" id="fbToggle" type="button" aria-label="Leave feedback" aria-expanded="false" aria-controls="fbPanel">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M14 10.2a1.6 1.6 0 0 1-1.6 1.6H5.2L2 14.6V3.4A1.6 1.6 0 0 1 3.6 1.8h8.8A1.6 1.6 0 0 1 14 3.4Z"></path></svg>FEEDBACK
+  </button>
+</div>
+
+<!-- ============================================================
+     GRID OVERLAY — design aid. Delete this block and .grid-* CSS
+     before the production deploy if you don't want it shipped.
+     ============================================================ -->
+<div class="grid-overlay" id="gridOverlay" aria-hidden="true">
+  <div class="baseline"></div>
+  <div class="cols wrap grid12"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+<button class="grid-btn" id="gridToggle" type="button" aria-label="Toggle the grid overlay" aria-pressed="false">
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1.5 1.5h13v13h-13zM6 1.5v13M10.5 1.5v13M1.5 6h13M1.5 10.5h13"></path></svg>GRID
+</button>
+
+<script src="js/main.js"></script>
+</body>
 </html>

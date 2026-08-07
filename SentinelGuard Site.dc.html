@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-99ba0e9a-44a4-4ecc-ada0-336231eb89f9/styles.css">
+<script src="_ds/nocturne-99ba0e9a-44a4-4ecc-ada0-336231eb89f9/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #07090f; color: #CBD5E1; font-family: Inter, system-ui, sans-serif; --color-accent: #0EA5E9; --color-accent-400: #38BDF8; --color-accent-600: #0284C7; }
+  a { color: #0EA5E9; text-decoration: none; }
+  a:hover { color: #38BDF8; }
+  ::selection { background: rgba(14,165,233,.28); }
+  [data-reveal] { transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); }
+  html[data-reveal-on] [data-reveal] { opacity: 0; transform: translateY(18px); }
+  html[data-reveal-on] [data-reveal].in { opacity: 1; transform: none; }
+  [data-shots] { scrollbar-width: thin; scrollbar-color: #1F2937 transparent; }
+  [data-shots]::-webkit-scrollbar { height: 8px; }
+  [data-shots]::-webkit-scrollbar-track { background: rgba(31,41,55,.35); border-radius: 4px; }
+  [data-shots]::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  [data-shots]::-webkit-scrollbar-thumb:hover { background: #0EA5E9; }
+  @keyframes sg-ring { 0% { opacity:.5; transform:scale(.18); } 100% { opacity:0; transform:scale(1); } }
+  @media (prefers-reduced-motion: reduce) { [data-ring] { animation: none !important; opacity:.22 !important; } }
+  /* ---------- tablet ---------- */
+  @media (max-width: 1080px) {
+    [data-w="nav"], [data-w="hero"], [data-w="sec"], [data-w="band"], [data-w="foot"] { padding-left:40px !important; padding-right:40px !important; }
+    [data-w="hero"] h1 { font-size:48px !important; line-height:56px !important; }
+    [data-heroart] { grid-column: 8 / span 5 !important; padding-right:64px; }
+    [data-heroart] span[data-ring] { width:170px !important; height:85px !important; margin:-42px 0 0 -85px !important; }
+  }
+  /* ---------- phone ---------- */
+  @media (max-width: 820px) {
+    [data-gridbtn] { display:none !important; }
+    #overview, #videos, #timeline, #team { scroll-margin-top:56px !important; }
+
+    [data-nav] { position:fixed !important; top:10px; left:10px; right:10px; z-index:80; border:1px solid #1F2937; border-radius:12px; background:rgba(11,17,32,.94) !important; backdrop-filter:blur(16px); box-shadow:0 10px 30px rgba(0,0,0,.55); }
+    [data-w="nav"] { padding:0 14px !important; height:52px !important; gap:12px !important; }
+    #overview, #videos, #timeline, #team { scroll-margin-top:78px !important; }
+    [data-navlinks] { display:none !important; }
+    [data-menubtn] { display:flex !important; }
+    [data-navlinks]::-webkit-scrollbar { display:none; }
+    [data-navlinks] > a { padding:8px 10px !important; }
+
+    [data-w="hero"] { padding:104px 20px 48px 20px !important; }
+    [data-w="sec"] { padding:56px 20px 0 20px !important; }
+    [data-w="band"] { padding:56px 20px !important; }
+    [data-w="foot"] { padding:24px 20px !important; flex-wrap:wrap; gap:16px !important; }
+
+    /* every column-placed child goes full width */
+    [data-g12], [data-tl] { grid-template-columns:1fr !important; row-gap:16px; }
+    [data-g12] > *, [data-tl] > * { grid-column:1 / -1 !important; grid-row:auto !important; }
+    [data-two], [data-three] { grid-template-columns:1fr !important; row-gap:20px; }
+    [data-erow] { grid-template-columns:1fr !important; row-gap:6px; }
+
+    [data-w="hero"] h1 { font-size:34px !important; line-height:40px !important; letter-spacing:-.02em !important; }
+    [data-w="hero"] p { font-size:17px !important; line-height:28px !important; margin-top:20px !important; }
+    [data-w="hero"] > div:nth-of-type(2) { margin-top:28px !important; }
+    h2 { font-size:28px !important; line-height:34px !important; }
+
+    [data-heroart] { max-width:300px; margin:32px 0 0 0 !important; align-self:start !important; padding-right:56px; }
+    [data-heroart] span[data-ring] { width:140px !important; height:70px !important; margin:-35px 0 0 -70px !important; }
+
+    [data-two] > div, [data-three] > div { border-left:none !important; border-top:1px solid #1F2937; padding-left:0 !important; padding-top:16px !important; }
+
+    [aria-label="Previous screenshot"] { left:6px !important; }
+    [aria-label="Next screenshot"] { right:6px !important; }
+    [data-shot] { flex:0 0 100% !important; }
+    [data-shot] image-slot { height:200px !important; }
+
+  }
+  /* ---------- small phone ---------- */
+  @media (max-width: 400px) {
+    [data-w="hero"] h1 { font-size:30px !important; line-height:36px !important; }
+    [data-w="hero"] > div:nth-of-type(2) > a { flex:1 1 100%; justify-content:center; }
+  }
+  @keyframes sg-pulse { 0%,100% { opacity:.35; transform:scale(1); } 50% { opacity:1; transform:scale(1.35); } }
+</style>
+</helmet>
+
+<div style="background:#07090f; min-height:100vh;">
+<sc-if value="{{ showGrid }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:60; pointer-events:none;">
+    <div style="position:absolute; inset:0; background:repeating-linear-gradient(to bottom, rgba(233,181,9,.14) 0 1px, rgba(0,0,0,0) 1px 8px);"></div>
+    <div style="position:relative; height:100%; max-width:1296px; margin:0 auto; padding:0 72px; box-sizing:border-box; display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px;"><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div><div style="background:rgba(14,165,233,.09); border-left:1px solid rgba(14,165,233,.28); border-right:1px solid rgba(14,165,233,.28);"></div></div>
+  </div>
+</sc-if>
+<button onClick="{{ toggleGrid }}" aria-label="Toggle the grid overlay" data-gridbtn="" style="position:fixed; bottom:24px; right:24px; z-index:70; display:flex; align-items:center; gap:8px; font-family:inherit; font-size:11px; letter-spacing:.2em; color:{{ gridBtnColor }}; background:rgba(11,17,32,.92); backdrop-filter:blur(8px); border:1px solid #1F2937; border-radius:8px; padding:12px 16px; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.5);" style-hover="border-color:#0EA5E9; color:#38BDF8">
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1.5 1.5h13v13h-13zM6 1.5v13M10.5 1.5v13M1.5 6h13M1.5 10.5h13"></path></svg>GRID
+</button>
+
+<!-- ============ NAV ============ -->
+<div data-nav="" style="position:sticky; top:0; z-index:50; background:rgba(11,17,32,.82); backdrop-filter:blur(14px); border-bottom:1px solid #1F2937;">
+  <div data-w="nav" style="position:relative; max-width:1296px; margin:0 auto; padding:0 72px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <a href="#top" style="display:flex; align-items:center; gap:11px; color:#F3F4F6;">
+      <svg width="19" height="22" viewBox="0 0 24 28" fill="none" stroke="#0EA5E9" stroke-width="1.7"><path d="M12 1.5 22 5v9c0 6.2-4.2 10.6-10 12.5C6.2 24.6 2 20.2 2 14V5l10-3.5Z"></path><path d="M8 13.6l2.9 2.9L16.4 11" stroke-linecap="round"></path></svg>
+      <span style="font-size:13px; letter-spacing:.22em; font-weight:500;">SENTINELGUARD</span>
+    </a>
+    <button onClick="{{ toggleMenu }}" aria-label="Menu" data-menubtn="" style="display:none; align-items:center; justify-content:center; gap:10px; width:44px; height:38px; background:transparent; border:1px solid #1F2937; border-radius:8px; color:#CBD5E1; cursor:pointer; font-family:inherit;">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">{{ menuIcon }}</svg>
+    </button>
+    <div data-navlinks="" style="display:flex; align-items:center; gap:4px;">
+      <a href="#overview" style="font-size:13px; color:#8C92A1; padding:8px 13px; border-radius:6px;" style-hover="color:#F3F4F6; background:rgba(255,255,255,.05)">Overview</a>
+      <a href="#videos" style="font-size:13px; color:#8C92A1; padding:8px 13px; border-radius:6px;" style-hover="color:#F3F4F6; background:rgba(255,255,255,.05)">Demo</a>
+      <a href="#timeline" style="font-size:13px; color:#8C92A1; padding:8px 13px; border-radius:6px;" style-hover="color:#F3F4F6; background:rgba(255,255,255,.05)">Timeline</a>
+      <a href="#team" style="font-size:13px; color:#8C92A1; padding:8px 13px; border-radius:6px;" style-hover="color:#F3F4F6; background:rgba(255,255,255,.05)">Team</a>
+      <a href="{{ posterHref }}" target="_blank" style="margin-left:10px; font-size:13px; color:#0EA5E9; border:1px solid rgba(14,165,233,.45); padding:8px 15px; border-radius:6px; display:flex; align-items:center; gap:8px; white-space:nowrap;" style-hover="background:rgba(14,165,233,.1); color:#38BDF8">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 12.5h11"></path></svg>Poster PDF</a>
+    </div>
+    <sc-if value="{{ showMenu }}" hint-placeholder-val="{{ false }}">
+      <div data-menu="" style="position:absolute; top:calc(100% + 8px); left:0; right:0; display:flex; flex-direction:column; padding:8px; background:rgba(11,17,32,.97); backdrop-filter:blur(16px); border:1px solid #1F2937; border-radius:12px; box-shadow:0 16px 40px rgba(0,0,0,.6);">
+        <a href="#overview" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:48px; padding:0 14px; border-radius:8px; font-size:15px; color:#CBD5E1;" style-hover="background:rgba(255,255,255,.05); color:#F3F4F6">Overview</a>
+        <a href="#videos" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:48px; padding:0 14px; border-radius:8px; font-size:15px; color:#CBD5E1;" style-hover="background:rgba(255,255,255,.05); color:#F3F4F6">Demo</a>
+        <a href="#timeline" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:48px; padding:0 14px; border-radius:8px; font-size:15px; color:#CBD5E1;" style-hover="background:rgba(255,255,255,.05); color:#F3F4F6">Timeline</a>
+        <a href="#team" onClick="{{ closeMenu }}" style="display:flex; align-items:center; min-height:48px; padding:0 14px; border-radius:8px; font-size:15px; color:#CBD5E1;" style-hover="background:rgba(255,255,255,.05); color:#F3F4F6">Team</a>
+        <a href="{{ posterHref }}" target="_blank" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:10px; min-height:48px; margin-top:6px; padding:0 14px; border:1px solid rgba(14,165,233,.45); border-radius:8px; font-size:15px; color:#0EA5E9;" style-hover="background:rgba(14,165,233,.12); color:#38BDF8">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 12.5h11"></path></svg>Poster PDF</a>
+      </div>
+    </sc-if>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<div id="top" style="position:relative; overflow:hidden; background:#0B1120; border-bottom:1px solid #1F2937;">
+  <div style="position:absolute; inset:0; background:radial-gradient(115% 80% at 10% 0%, rgba(14,165,233,.15), rgba(11,17,32,0) 60%); pointer-events:none;"></div>
+  <div data-w="hero" data-g12="" style="position:relative; max-width:1296px; margin:0 auto; padding:120px 72px 80px 72px; display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px; align-content:start;">
+    <div style="grid-column:1 / span 7; display:flex; align-items:center; gap:16px; margin-bottom:24px;" data-reveal="">
+      <span style="width:40px; height:2px; background:#0EA5E9;"></span>
+      <span style="font-size:12px; letter-spacing:.24em; color:#0EA5E9;">CONTINUOUS AUTHENTICATION</span>
+    </div>
+    <h1 style="grid-column:1 / span 7; margin:0; font-size:64px; line-height:72px; font-weight:500; letter-spacing:-.035em; color:#F3F4F6;" data-reveal="">Watchdog for the untrusted workspace.</h1>
+    <p style="grid-column:1 / span 6; margin:32px 0 0 0; font-size:20px; line-height:32px; font-weight:300; color:#CBD5E1; text-wrap:pretty;" data-reveal="">SentinelGuard is a Windows agent that verifies who is sitting in front of the machine every few seconds — on-device, with no network and no cloud. When verification fails, the screen protects itself: it contains, alerts, and escalates to the real OS lock.</p>
+    <div style="grid-column:1 / span 7; display:flex; align-items:center; flex-wrap:wrap; gap:16px; margin-top:40px;" data-reveal="">
+      <a href="#videos" style="display:flex; align-items:center; gap:10px; font-size:14px; color:#0EA5E9; border:1px solid rgba(14,165,233,.55); padding:13px 22px; border-radius:8px; white-space:nowrap;" style-hover="background:rgba(14,165,233,.12); color:#38BDF8">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5 12 7l-9 5.5V1.5Z"></path></svg>Watch the demos</a>
+      <a href="#team" style="font-size:14px; color:#CBD5E1; border:1px solid #1F2937; padding:13px 22px; border-radius:8px; white-space:nowrap;" style-hover="border-color:#38455c; color:#F3F4F6">Developers &amp; contact</a>
+    </div>
+    <div data-heroart="" style="grid-column:9 / span 4; grid-row:1 / span 4; align-self:center; margin-top:0;" data-reveal="">
+      <div style="position:relative; width:100%; padding-top:22px;">
+        <div style="position:absolute; left:calc(100% - 29px); top:126px; width:0; height:0;"><span data-ring="" style="position:absolute; left:0; top:0; width:220px; height:110px; margin:-55px 0 0 -110px; border:1px solid #0EA5E9; border-radius:50%; animation:sg-ring 3s linear 0s infinite;"></span><span data-ring="" style="position:absolute; left:0; top:0; width:220px; height:110px; margin:-55px 0 0 -110px; border:1px solid #0EA5E9; border-radius:50%; animation:sg-ring 3s linear 1s infinite;"></span><span data-ring="" style="position:absolute; left:0; top:0; width:220px; height:110px; margin:-55px 0 0 -110px; border:1px solid #0EA5E9; border-radius:50%; animation:sg-ring 3s linear 2s infinite;"></span></div>
+        <svg viewBox="0 0 340 210" width="100%" style="display:block; position:relative;" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <g transform="translate(-26,0)">
+            <path d="M96 126v7l110 55 72-36v-7" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M168 90 278 145 206 181 96 126Z" fill="#111827" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M170.4 102 254 143.8 220.2 160.7 136.6 118.9Z" fill="#0d1524" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M160.8 135.4 187.2 148.6 171.4 156.5 145 143.3Z" fill="#0B1120" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M168 90 278 145 296 61 186 6Z" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M174.6 86.8 273.9 136.5 289.4 64.2 190.1 14.5Z" fill="#0B1120" stroke="#1b2436" stroke-width="1"></path>
+            <path d="M196 22 256 52 253.9 61.8 193.9 31.8Z" fill="#16A34A" opacity=".2"></path>
+            <path d="M196 22 256 52" stroke="#16A34A" stroke-width="1.4" opacity=".85"></path>
+            <path d="M199 46 249 71" stroke="#243044" stroke-width="1.2"></path>
+            <path d="M199 57 235 75" stroke="#1b2436" stroke-width="1.2"></path>
+          </g>
+          <g transform="translate(22,14)">
+          <path d="M272 132 302 147 282 157 252 142Z" fill="#131c2e" stroke="#243044" stroke-width="1.2"></path>
+          <path d="M252 142 282 157 282 171 252 156Z" fill="#0d1524" stroke="#243044" stroke-width="1.2"></path>
+          <path d="M282 157 302 147 302 161 282 171Z" fill="#0B1120" stroke="#243044" stroke-width="1.2"></path>
+          <circle cx="277" cy="150" r="2.6" fill="#0EA5E9"></circle>
+          <path d="M272 132 259 120" stroke="#243044" stroke-width="1.2"></path>
+          <circle cx="258" cy="119" r="1.8" fill="#243044"></circle>
+          </g>
+        </svg>
+      </div>
+      <div style="display:flex; justify-content:space-between; gap:16px; margin-top:16px; font-size:11px; letter-spacing:.18em;">
+        <span style="color:#16A34A;">MACHINE · VERIFIED</span>
+        <span style="color:#0EA5E9;">TRUSTED NODE</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<div id="overview" data-w="sec" style="scroll-margin-top:64px; max-width:1296px; margin:0 auto; padding:96px 72px 0 72px;">
+  <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:32px;">
+    <span style="font-size:12px; letter-spacing:.24em; color:#8C92A1;">THREE WAYS A WORKSTATION IS EXPOSED</span>
+    <span style="flex:1; height:1px; background:linear-gradient(90deg,#1F2937,rgba(31,41,55,0));"></span>
+  </div>
+
+  <div data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px;" data-reveal="">
+    <div style="grid-column:span 4; background:#111827; border:1px solid #1F2937; border-top:3px solid #E9B509; padding:24px;">
+      <div style="font-size:12px; letter-spacing:.18em; color:#E9B509; margin-bottom:16px;">01 &nbsp;ABSENCE</div>
+      <div style="font-size:22px; line-height:24px; font-weight:500; color:#F3F4F6; letter-spacing:-.02em; margin-bottom:16px;">You step away from the desk.</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Windows minimise, the desktop disappears, input is absorbed — and it lifts itself the instant your face returns.</div>
+    </div>
+    <div style="grid-column:span 4; background:#111827; border:1px solid #1F2937; border-top:3px solid #E77A24; padding:24px;">
+      <div style="font-size:12px; letter-spacing:.18em; color:#E77A24; margin-bottom:16px;">02 &nbsp;OBSERVER</div>
+      <div style="font-size:22px; line-height:24px; font-weight:500; color:#F3F4F6; letter-spacing:-.02em; margin-bottom:16px;">A second face reads your screen.</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">An unrecognised face held in frame for three seconds raises an alert and an audit entry. Flicker never counts.</div>
+    </div>
+    <div style="grid-column:span 4; background:#111827; border:1px solid #1F2937; border-top:3px solid #E53E3E; padding:24px;">
+      <div style="font-size:12px; letter-spacing:.18em; color:#E53E3E; margin-bottom:16px;">03 &nbsp;ENVIRONMENT</div>
+      <div style="font-size:22px; line-height:24px; font-weight:500; color:#F3F4F6; letter-spacing:-.02em; margin-bottom:16px;">The machine leaves its trusted room.</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">A trusted anchor geofences the hardware itself. Lose it with nobody verified and the real Windows lock takes over.</div>
+    </div>
+  </div>
+
+  <!-- state model -->
+  <div style="display:flex; align-items:baseline; gap:16px; margin:96px 0 16px 0;">
+    <span style="font-size:12px; letter-spacing:.24em; color:#8C92A1;">THE THREE STATUSES</span>
+    <span style="flex:1; height:1px; background:linear-gradient(90deg,#1F2937,rgba(31,41,55,0));"></span>
+  </div>
+  <p style="margin:0 0 26px 0; font-size:14px; line-height:24px; font-weight:300; color:#8C92A1; max-width:70ch; text-wrap:pretty;">The agent is always in exactly one status, and the status is what the operator sees on the dashboard. Escalation is one-way — you never skip a step — but recovery is automatic wherever it is safe to be automatic. The order is SCANNING → PRIVACYMODE → LOCKDOWN.</p>
+
+  <div data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px; align-items:stretch;" data-reveal="">
+    <div style="grid-column:span 4; border:1px solid #1F2937; border-top:3px solid #16A34A; background:#111827; padding:24px;">
+      <div style="font-size:16px; font-weight:500; color:#16A34A; letter-spacing:.05em; margin-bottom:12px;">SCANNING</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">The normal, working status. The enrolled user has been matched in the last verification pass and the trusted anchor is in range, so nothing is hidden and nothing is blocked — the agent simply keeps checking in the background.</div>
+      <div style="font-size:12px; line-height:20px; color:#8C92A1; margin-top:24px; padding-top:16px; border-top:1px solid #1F2937;"><span style="color:#16A34A;">Entered</span> on a verified match · <span style="color:#16A34A;">Left</span> when a verification pass fails</div>
+    </div>
+    <div style="grid-column:span 4; border:1px solid #1F2937; border-top:3px solid #E9B509; background:#111827; padding:24px;">
+      <div style="font-size:16px; font-weight:500; color:#E9B509; letter-spacing:.05em; margin-bottom:12px;">PRIVACYMODE</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Containment inside the application layer: the work is covered but the session stays alive. Nothing is closed, nothing is lost, and the agent keeps watching for the enrolled face so it can hand the desk straight back.</div>
+      <div style="font-size:12px; line-height:20px; color:#8C92A1; margin-top:24px; padding-top:16px; border-top:1px solid #1F2937;"><span style="color:#E9B509;">Entered</span> on absence or an unrecognised face · <span style="color:#16A34A;">Left</span> automatically when the user is verified again</div>
+    </div>
+    <div style="grid-column:span 4; border:1px solid #1F2937; border-top:3px solid #E53E3E; background:#111827; padding:24px;">
+      <div style="font-size:16px; font-weight:500; color:#E53E3E; letter-spacing:.05em; margin-bottom:12px;">LOCKDOWN</div>
+      <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">The last status, and the only one the agent cannot undo. Containment is handed to the operating system lock, so the desk is protected even if the agent, the camera or the machine's power state changes.</div>
+      <div style="font-size:12px; line-height:20px; color:#8C92A1; margin-top:24px; padding-top:16px; border-top:1px solid #1F2937;"><span style="color:#E53E3E;">Entered</span> when the machine leaves its trusted place unattended · <span style="color:#CBD5E1;">Left</span> only by signing in</div>
+    </div>
+  </div>
+
+  <!-- expandable architecture -->
+  <div style="margin-top:20px;">
+    <button onClick="{{ toggleArch }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:transparent; border:1px solid #1F2937; border-radius:8px; padding:24px; cursor:pointer; font-family:inherit; text-align:left;" style-hover="border-color:#38455c">
+      <span>
+        <span style="display:block; font-size:15px; font-weight:500; color:#F3F4F6; margin-bottom:5px;">How it decides — the four-layer architecture</span>
+        <span style="display:block; font-size:13px; font-weight:300; color:#8C92A1;">Sensors publish facts, a classifier names them, one pure function holds the whole policy.</span>
+      </span>
+      <span style="display:flex; align-items:center; gap:9px; font-size:12px; letter-spacing:.14em; color:#0EA5E9; white-space:nowrap;">{{ archLabel }}<span style="font-size:15px;">{{ archCaret }}</span></span>
+    </button>
+
+    <sc-if value="{{ showArch }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #1F2937; border-top:none; border-radius:0 0 8px 8px; padding:32px 24px 24px 24px; margin-top:-8px;">
+
+        <div style="border:1px solid #1F2937; background:#111827; padding:24px; border-radius:8px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+            <span style="font-size:12px; letter-spacing:.18em; color:#0EA5E9;">LAYER 1 &nbsp;·&nbsp; SIGNALS</span>
+            <span style="font-size:12px; color:#8C92A1;">senses, never judges</span>
+          </div>
+          <div data-two="" style="display:grid; grid-template-columns:1fr 1fr; column-gap:24px;">
+            <div style="border-left:2px solid #1F2937; padding-left:16px;">
+              <div style="font-size:15px; font-weight:500; color:#F3F4F6; margin-bottom:6px;">MonitoringService</div>
+              <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Camera frames, face detection, then a 512-D embedding compared against the enrolled user. Publishes <span style="color:#F3F4F6;">authorized_user</span>.</div>
+            </div>
+            <div style="border-left:2px solid #1F2937; padding-left:16px;">
+              <div style="font-size:15px; font-weight:500; color:#F3F4F6; margin-bottom:6px;">TrustedNodeService</div>
+              <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">A trusted beacon in the room, matched on its identifier and signal strength. Publishes <span style="color:#F3F4F6;">node_signal</span>.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; padding:8px 0; color:#1F2937; font-size:15px;">↓</div>
+
+        <div style="border:1px solid #1F2937; background:#111827; padding:24px; border-radius:8px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+            <span style="font-size:12px; letter-spacing:.18em; color:#0EA5E9;">LAYER 2 &nbsp;·&nbsp; EVENT SERVICE</span>
+            <span style="font-size:12px; color:#8C92A1;">classifies, never judges</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:1px; background:#1F2937; border:1px solid #1F2937; border-radius:6px; overflow:hidden;">
+            <div data-erow="" style="display:grid; grid-template-columns:200px 1fr; column-gap:24px; background:#0f1523; padding:16px;">
+              <span style="font-size:13px; color:#CBD5E1;">NONE</span>
+              <span style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">Nothing is wrong: the enrolled user is matched, no other face is in frame, and the anchor is in range.</span>
+            </div>
+            <div data-erow="" style="display:grid; grid-template-columns:200px 1fr; column-gap:24px; background:#0f1523; padding:16px;">
+              <span style="font-size:13px; color:#E9B509;">ON_USER_ABSENT</span>
+              <span style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">The enrolled face has not been matched for the length of the absence timer — the seat is empty, or whoever is in it is not the user.</span>
+            </div>
+            <div data-erow="" style="display:grid; grid-template-columns:200px 1fr; column-gap:24px; background:#0f1523; padding:16px;">
+              <span style="font-size:13px; color:#E77A24;">ON_OBSERVER</span>
+              <span style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">A second face is in frame <em style="font-style:normal; color:#CBD5E1;">alongside</em> the verified user and stays there for three continuous seconds. Someone glancing past never crosses the threshold.</span>
+            </div>
+            <div data-erow="" style="display:grid; grid-template-columns:200px 1fr; column-gap:24px; background:#0f1523; padding:16px;">
+              <span style="font-size:13px; color:#E9B509;">ON_NODE_LOSS</span>
+              <span style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">The trusted anchor has missed two consecutive scan passes — roughly twelve seconds — so the machine is no longer in the room it is supposed to be in.</span>
+            </div>
+            <div data-erow="" style="display:grid; grid-template-columns:200px 1fr; column-gap:24px; background:#0f1523; padding:16px;">
+              <span style="font-size:13px; color:#E53E3E;">ON_UNSECURE_ENV</span>
+              <span style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">An unrecognised face is at the machine with <em style="font-style:normal; color:#CBD5E1;">no</em> verified user present. Not an onlooker — someone using the desk.</span>
+            </div>
+          </div>
+          <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1; margin-top:14px;">Every event is debounced before it is raised, so a dropped frame or a moment of bad light never triggers anything. The result is a set, not a value — several events can be true in the same pass, and Sentinel resolves them by priority.</div>
+        </div>
+
+        <div style="display:flex; justify-content:center; padding:8px 0; color:#1F2937; font-size:15px;">↓</div>
+
+        <div style="border:1px solid rgba(14,165,233,.4); background:#111827; padding:24px; border-radius:8px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
+            <span style="font-size:12px; letter-spacing:.18em; color:#0EA5E9;">LAYER 3 &nbsp;·&nbsp; SENTINEL</span>
+            <span style="font-size:12px; color:#0EA5E9;">the only decision maker</span>
+          </div>
+          <div style="font-size:21px; font-weight:500; color:#F3F4F6; letter-spacing:-.015em; margin-bottom:10px;">decide(state, events) → (state, commands)</div>
+          <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">One pure function holds the priority order, the single configurable timer, and every escalation path.</div>
+        </div>
+
+        <div style="display:flex; justify-content:center; padding:8px 0; color:#1F2937; font-size:15px;">↓</div>
+
+        <div style="border:1px solid #1F2937; background:#111827; padding:24px; border-radius:8px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+            <span style="font-size:12px; letter-spacing:.18em; color:#0EA5E9;">LAYER 4 &nbsp;·&nbsp; ACTIONS</span>
+            <span style="font-size:12px; color:#8C92A1;">executes, never judges</span>
+          </div>
+          <div data-three="" style="display:grid; grid-template-columns:repeat(3,1fr); column-gap:24px;">
+            <div style="border-left:2px solid #1F2937; padding-left:16px;">
+              <span style="display:block; color:#F3F4F6; font-size:15px; font-weight:500; margin-bottom:7px;">Notify</span>
+              <span style="display:block; font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Raises an on-screen warning naming what was seen and writes a timestamped entry to the audit log. Nothing on the desk changes — this is the action for things the user should know about but does not need protecting from.</span>
+            </div>
+            <div style="border-left:2px solid #1F2937; padding-left:16px;">
+              <span style="display:block; color:#F3F4F6; font-size:15px; font-weight:500; margin-bottom:7px;">Contain</span>
+              <span style="display:block; font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Minimises open windows, covers the desktop with an opaque overlay and absorbs keyboard and mouse input, so nothing can be read or typed. The session keeps running underneath and is handed back intact on the next verified match.</span>
+            </div>
+            <div style="border-left:2px solid #1F2937; padding-left:16px;">
+              <span style="display:block; color:#F3F4F6; font-size:15px; font-weight:500; margin-bottom:7px;">Lock</span>
+              <span style="display:block; font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">Hands the screen to the operating system's own lock. The agent stops being the thing standing in the way, which means the protection survives the agent being killed — and only a real sign-in returns the desk.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- screenshots -->
+  <div style="display:flex; align-items:baseline; gap:16px; margin:96px 0 24px 0;">
+    <span style="font-size:12px; letter-spacing:.24em; color:#8C92A1;">IN OPERATION</span>
+    <span style="flex:1; height:1px; background:linear-gradient(90deg,#1F2937,rgba(31,41,55,0));"></span>
+  </div>
+  <div style="font-size:14px; line-height:24px; font-weight:300; color:#8C92A1; max-width:62ch; margin-bottom:24px;">Five states of the agent, as the operator sees them. Scroll sideways.</div>
+  <div style="position:relative;">
+  <button onClick="{{ shotsPrev }}" aria-label="Previous screenshot" style="position:absolute; top:50%; left:-18px; transform:translateY(-50%); z-index:5; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid #1F2937; background:rgba(11,17,32,.9); backdrop-filter:blur(8px); color:#CBD5E1; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.5);" style-hover="border-color:#0EA5E9; color:#38BDF8">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5"></path></svg>
+  </button>
+  <button onClick="{{ shotsNext }}" aria-label="Next screenshot" style="position:absolute; top:50%; right:-18px; transform:translateY(-50%); z-index:5; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid #1F2937; background:rgba(11,17,32,.9); backdrop-filter:blur(8px); color:#CBD5E1; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.5);" style-hover="border-color:#0EA5E9; color:#38BDF8">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"></path></svg>
+  </button>
+  <div data-reveal="" data-shots="" style="display:flex; column-gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:18px;">
+    <div data-shot="" style="flex:0 0 calc((100% - 24px) / 2); scroll-snap-align:start; border:1px solid #1F2937; background:#111827; padding:16px; border-radius:8px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 8px 12px 8px;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; color:#16A34A; white-space:nowrap;"><span style="width:8px; height:8px; border-radius:50%; background:#16A34A; animation:sg-pulse 2.6s ease-in-out infinite;"></span>AUTHORIZED USER VERIFIED</span>
+        <span style="font-size:11.5px; color:#4b5563;">01</span>
+      </div>
+      <image-slot id="site-shot-1" src="uploads/secure.png" shape="rounded" radius="6" style="width:100%; height:300px;" placeholder="Drop the verified-user screenshot"></image-slot>
+    </div>
+    <div data-shot="" style="flex:0 0 calc((100% - 24px) / 2); scroll-snap-align:start; border:1px solid #1F2937; background:#111827; padding:16px; border-radius:8px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 8px 12px 8px;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; color:#E77A24; white-space:nowrap;"><span style="width:8px; height:8px; border-radius:50%; background:#E77A24;"></span>OBSERVER DETECTED</span>
+        <span style="font-size:11.5px; color:#4b5563;">02</span>
+      </div>
+      <image-slot id="site-shot-2" src="uploads/observer.png" shape="rounded" radius="6" style="width:100%; height:300px;" placeholder="Drop the observer-detected screenshot"></image-slot>
+    </div>
+    <div data-shot="" style="flex:0 0 calc((100% - 24px) / 2); scroll-snap-align:start; border:1px solid #1F2937; background:#111827; padding:16px; border-radius:8px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 8px 12px 8px;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; color:#0EA5E9; white-space:nowrap;"><span style="width:8px; height:8px; border-radius:50%; background:#0EA5E9;"></span>FRIENDLY FACE DETECTED</span>
+        <span style="font-size:11.5px; color:#4b5563;">03</span>
+      </div>
+      <image-slot id="site-shot-3" src="uploads/friendly.png" shape="rounded" radius="6" style="width:100%; height:300px;" placeholder="Drop the friendly-face screenshot"></image-slot>
+    </div>
+    <div data-shot="" style="flex:0 0 calc((100% - 24px) / 2); scroll-snap-align:start; border:1px solid #1F2937; background:#111827; padding:16px; border-radius:8px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 8px 12px 8px;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; color:#E9B509; white-space:nowrap;"><span style="width:8px; height:8px; border-radius:50%; background:#E9B509;"></span>TRUSTED NODE LOST</span>
+        <span style="font-size:11.5px; color:#4b5563;">04</span>
+      </div>
+      <image-slot id="site-shot-4" src="uploads/node_lost.png" shape="rounded" radius="6" style="width:100%; height:300px;" placeholder="Drop the node-lost screenshot"></image-slot>
+    </div>
+    <div data-shot="" style="flex:0 0 calc((100% - 24px) / 2); scroll-snap-align:start; border:1px solid #1F2937; background:#111827; padding:16px; border-radius:8px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:4px 8px 12px 8px;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; color:#E53E3E; white-space:nowrap;"><span style="width:8px; height:8px; border-radius:50%; background:#E53E3E;"></span>UNAUTHORIZED USER DETECTED</span>
+        <span style="font-size:11.5px; color:#4b5563;">05</span>
+      </div>
+      <image-slot id="site-shot-5" src="uploads/unknown.png" shape="rounded" radius="6" style="width:100%; height:300px;" placeholder="Drop the unauthorized-user screenshot"></image-slot>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ============ VIDEOS ============ -->
+<div id="videos" style="scroll-margin-top:64px; background:#0B1120; border-top:1px solid #1F2937; border-bottom:1px solid #1F2937; margin-top:96px;">
+  <div data-w="band" style="max-width:1296px; margin:0 auto; padding:96px 72px;">
+    <div data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px; align-items:end; margin-bottom:48px;">
+      <div style="grid-column:1 / span 7;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+          <span style="width:40px; height:2px; background:#0EA5E9;"></span>
+          <span style="font-size:12px; letter-spacing:.24em; color:#0EA5E9;">RECORDED DEMOS</span>
+        </div>
+        <h2 style="margin:0; font-size:40px; line-height:40px; font-weight:500; letter-spacing:-.03em; color:#F3F4F6;">Watch the system react.</h2>
+      </div>
+      <p style="grid-column:9 / span 4; margin:0; font-size:15px; line-height:24px; font-weight:300; color:#8C92A1;">Each clip runs a single failure condition end to end — the trigger, the containment, and the recovery.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:48px;">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+        <div data-reveal="" data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px; align-items:start;">
+          <div style="grid-column:1 / span 8; position:relative; width:100%; aspect-ratio:16/9; background:#111827; border:1px solid #1F2937; border-radius:8px; overflow:hidden;">
+            <sc-if value="{{ v.hasEmbed }}" hint-placeholder-val="{{ false }}">
+              <iframe src="{{ v.embed }}" title="{{ v.title }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen="" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
+            </sc-if>
+            <sc-if value="{{ v.noEmbed }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:#8C92A1;">
+                <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#1F2937" stroke-width="1.4"><rect x="1.5" y="4" width="21" height="16" rx="3"></rect><path d="M10 9.2 15.5 12 10 14.8V9.2Z" fill="#1F2937" stroke="none"></path></svg>
+                <div style="font-size:13px; text-align:center; line-height:1.6;">No video linked yet<br><span style="color:#4b5563;">Paste a YouTube URL in Tweaks</span></div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="grid-column:9 / span 4;">
+            <div style="font-size:12px; letter-spacing:.2em; color:#0EA5E9; margin-bottom:14px;">{{ v.num }}</div>
+            <div style="font-size:24px; line-height:1.15; font-weight:500; color:#F3F4F6; letter-spacing:-.02em; margin-bottom:14px;">{{ v.title }}</div>
+            <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">{{ v.blurb }}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:20px;">
+              <span style="font-size:11.5px; letter-spacing:.1em; color:#8C92A1; border:1px solid #1F2937; padding:6px 11px; border-radius:5px; white-space:nowrap;">{{ v.tag }}</span>
+              <span style="font-size:11.5px; letter-spacing:.1em; color:#8C92A1; border:1px solid #1F2937; padding:6px 11px; border-radius:5px; white-space:nowrap;">{{ v.length }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TIMELINE ============ -->
+<div id="timeline" data-w="sec" style="scroll-margin-top:64px; max-width:1296px; margin:0 auto; padding:96px 72px 0 72px;">
+  <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+    <span style="width:40px; height:2px; background:#0EA5E9;"></span>
+    <span style="font-size:12px; letter-spacing:.24em; color:#0EA5E9;">HOW IT WAS BUILT</span>
+  </div>
+  <h2 style="margin:0 0 48px 0; font-size:40px; line-height:40px; font-weight:500; letter-spacing:-.03em; color:#F3F4F6;">Three and a half months, five milestones.</h2>
+
+  <div data-tl="" style="display:grid; grid-template-columns:repeat(10,1fr); column-gap:24px;" data-reveal="">
+    <div style="grid-column:span 2; border-top:1px solid #1F2937; padding-top:24px; position:relative;">
+      <span style="position:absolute; top:-4px; left:0; width:7px; height:7px; border-radius:50%; background:#0EA5E9;"></span>
+      <div style="font-size:12px; letter-spacing:.16em; color:#0EA5E9; margin-bottom:12px; white-space:nowrap;">MAY 2026</div>
+      <div style="font-size:16px; font-weight:500; color:#F3F4F6; margin-bottom:8px; letter-spacing:-.01em;">Threat model</div>
+      <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">Scoped the three exposure cases and settled on strictly on-device processing.</div>
+    </div>
+    <div style="grid-column:span 2; border-top:1px solid #1F2937; padding-top:24px; position:relative;">
+      <span style="position:absolute; top:-4px; left:0; width:7px; height:7px; border-radius:50%; background:#334155;"></span>
+      <div style="font-size:12px; letter-spacing:.16em; color:#8C92A1; margin-bottom:12px; white-space:nowrap;">JUN 2026</div>
+      <div style="font-size:16px; font-weight:500; color:#F3F4F6; margin-bottom:8px; letter-spacing:-.01em;">Face pipeline</div>
+      <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">Detection into embeddings, tuned for a similarity threshold that holds under real desk lighting.</div>
+    </div>
+    <div style="grid-column:span 2; border-top:1px solid #1F2937; padding-top:24px; position:relative;">
+      <span style="position:absolute; top:-4px; left:0; width:7px; height:7px; border-radius:50%; background:#334155;"></span>
+      <div style="font-size:12px; letter-spacing:.16em; color:#8C92A1; margin-bottom:12px; white-space:nowrap;">JUL 2026</div>
+      <div style="font-size:16px; font-weight:500; color:#F3F4F6; margin-bottom:8px; letter-spacing:-.01em;">Sentinel engine</div>
+      <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">Pulled every decision out of the sensors into one pure function with the state machine and its timers.</div>
+    </div>
+    <div style="grid-column:span 2; border-top:1px solid #1F2937; padding-top:24px; position:relative;">
+      <span style="position:absolute; top:-4px; left:0; width:7px; height:7px; border-radius:50%; background:#334155;"></span>
+      <div style="font-size:12px; letter-spacing:.16em; color:#8C92A1; margin-bottom:12px; white-space:nowrap;">EARLY AUG 2026</div>
+      <div style="font-size:16px; font-weight:500; color:#F3F4F6; margin-bottom:8px; letter-spacing:-.01em;">Trusted node</div>
+      <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">The trusted beacon and its signal debouncing, closing the geofence escalation into the OS lock.</div>
+    </div>
+    <div style="grid-column:span 2; border-top:1px solid #1F2937; padding-top:24px; position:relative;">
+      <span style="position:absolute; top:-4px; left:0; width:7px; height:7px; border-radius:50%; background:#334155;"></span>
+      <div style="font-size:12px; letter-spacing:.16em; color:#8C92A1; margin-bottom:12px; white-space:nowrap;">MID AUG 2026</div>
+      <div style="font-size:16px; font-weight:500; color:#F3F4F6; margin-bottom:8px; letter-spacing:-.01em;">Showcase build</div>
+      <div style="font-size:13px; line-height:20px; font-weight:300; color:#8C92A1;">Hardened the interface, wrote the audit log, and recorded the demo set on this page.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TEAM ============ -->
+<div id="team" style="scroll-margin-top:64px; background:#0B1120; border-top:1px solid #1F2937; margin-top:96px;">
+  <div data-w="band" style="max-width:1296px; margin:0 auto; padding:96px 72px;">
+    <div data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px; align-items:end; margin-bottom:48px;">
+      <div style="grid-column:1 / span 7;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+          <span style="width:40px; height:2px; background:#0EA5E9;"></span>
+          <span style="font-size:12px; letter-spacing:.24em; color:#0EA5E9;">THE DEVELOPERS</span>
+        </div>
+        <h2 style="margin:0; font-size:40px; line-height:40px; font-weight:500; letter-spacing:-.03em; color:#F3F4F6;">Who built it.</h2>
+      </div>
+      <p style="grid-column:9 / span 4; margin:0; font-size:15px; line-height:24px; font-weight:300; color:#8C92A1;">Final-year engineering project · Humber College · 2026</p>
+    </div>
+
+    <div data-g12="" style="display:grid; grid-template-columns:repeat(12,1fr); column-gap:24px;">
+      <sc-for list="{{ team }}" as="p" hint-placeholder-count="2">
+        <div data-reveal="" style="grid-column:span 6; border:1px solid #1F2937; background:#111827; border-radius:8px; padding:24px; display:flex; flex-direction:column; gap:24px;" style-hover="border-color:#38455c">
+          <div style="display:flex; align-items:center; gap:24px;">
+            <div style="width:88px; height:88px; flex:0 0 auto; border-radius:50%; overflow:hidden; border:1px solid #1F2937;">
+              <image-slot id="{{ p.slot }}" shape="circle" style="width:88px; height:88px;" placeholder="Photo"></image-slot>
+            </div>
+            <div>
+              <div style="font-size:22px; font-weight:500; color:#F3F4F6; letter-spacing:-.02em; margin-bottom:8px;">{{ p.name }}</div>
+              <div style="font-size:12px; letter-spacing:.14em; color:#0EA5E9;">{{ p.role }}</div>
+            </div>
+          </div>
+          <div style="font-size:14px; line-height:24px; font-weight:300; color:#CBD5E1;">{{ p.blurb }}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:8px;">
+            <a href="{{ p.mail }}" style="display:flex; align-items:center; gap:9px; font-size:13px; color:#0EA5E9; border:1px solid rgba(14,165,233,.45); padding:11px 16px; border-radius:7px;" style-hover="background:rgba(14,165,233,.12); color:#38BDF8">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3" width="13" height="10" rx="2"></rect><path d="m2 4.5 6 4 6-4"></path></svg>Email</a>
+            <a href="{{ p.linkedin }}" target="_blank" style="display:flex; align-items:center; gap:9px; font-size:13px; color:#CBD5E1; border:1px solid #1F2937; padding:11px 16px; border-radius:7px;" style-hover="border-color:#38455c; color:#F3F4F6">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3.4 5.6H1.2V14h2.2V5.6ZM2.3 1.7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6ZM14.8 9.3c0-2.3-1.2-3.9-3.2-3.9-1.1 0-1.8.6-2.1 1.2V5.6H7.3V14h2.2V9.5c0-1.1.5-1.8 1.4-1.8.9 0 1.3.7 1.3 1.8V14h2.6V9.3Z"></path></svg>LinkedIn</a>
+            <a href="{{ p.resume }}" target="_blank" style="display:flex; align-items:center; gap:9px; font-size:13px; color:#CBD5E1; border:1px solid #1F2937; padding:11px 16px; border-radius:7px;" style-hover="border-color:#38455c; color:#F3F4F6">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 2v8m0 0 3-3m-3 3L5 7M2.5 13.5h11"></path></svg>Résumé</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div style="border-top:1px solid #1F2937; background:#07090f;">
+  <div data-w="foot" style="max-width:1296px; margin:0 auto; padding:32px 72px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <svg width="16" height="19" viewBox="0 0 24 28" fill="none" stroke="#334155" stroke-width="1.7"><path d="M12 1.5 22 5v9c0 6.2-4.2 10.6-10 12.5C6.2 24.6 2 20.2 2 14V5l10-3.5Z"></path></svg>
+      <span style="font-size:12px; letter-spacing:.2em; color:#4b5563;">SENTINELGUARD · 2026</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:22px; font-size:12px; color:#4b5563;">
+      <a href="#top" style="display:flex; align-items:center; gap:9px; font-size:13px; color:#0EA5E9; border:1px solid rgba(14,165,233,.45); padding:10px 16px; border-radius:7px; white-space:nowrap;" style-hover="background:rgba(14,165,233,.12); color:#38BDF8; border-color:#0EA5E9">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13.5V3m0 0 4 4M8 3 4 7"></path></svg>Back to top</a>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;video1Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Videos&quot;},&quot;video2Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Videos&quot;},&quot;video3Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Videos&quot;},&quot;video4Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Videos&quot;},&quot;video5Url&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Videos&quot;},&quot;posterHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Links&quot;},&quot;member1Name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Rivaldo Fonkou&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 1&quot;},&quot;member1Role&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;FACE RECOGNITION · INTERFACE&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 1&quot;},&quot;member1Email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 1&quot;},&quot;member1Linkedin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 1&quot;},&quot;member1Resume&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 1&quot;},&quot;member2Name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;HsuMing Chien&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 2&quot;},&quot;member2Role&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;TRUSTED NODE · HARDWARE&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 2&quot;},&quot;member2Email&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 2&quot;},&quot;member2Linkedin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 2&quot;},&quot;member2Resume&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Developer 2&quot;}}">
+class Component extends DCLogic {
+  state = { showArch: false, showGrid: false, showMenu: false };
+
+  componentDidMount() {
+    if (!('IntersectionObserver' in window)) return;
+    const reveal = (el) => el.classList.add('in');
+    const inView = (el) => el.getBoundingClientRect().top < window.innerHeight;
+    const io = new IntersectionObserver((entries) => {
+      this._fired = true;
+      entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    this._io = io;
+    this._scan = () => document.querySelectorAll('[data-reveal]:not(.in)').forEach((el) => {
+      if (inView(el)) reveal(el); else io.observe(el);
+    });
+    // hide only once JS is proven to run; anything already on screen reveals immediately
+    document.documentElement.setAttribute('data-reveal-on', '');
+    this._scan();
+    this._t = setInterval(this._scan, 900);
+    // fail-open: if the observer never reports, show everything
+    this._safety = setTimeout(() => {
+      if (this._fired) return;
+      clearInterval(this._t);
+      io.disconnect();
+      document.querySelectorAll('[data-reveal]').forEach(reveal);
+    }, 900);
+  }
+  componentWillUnmount() { clearInterval(this._t); clearTimeout(this._safety); if (this._io) this._io.disconnect(); }
+  componentDidUpdate() { if (this._scan) this._scan(); }
+
+  scrollShots(dir) {
+    const row = document.querySelector('[data-shots]');
+    if (!row) return;
+    const card = row.firstElementChild;
+    const step = card ? card.getBoundingClientRect().width + 24 : row.clientWidth * 0.8;
+    row.scrollBy({ left: dir * step, behavior: 'smooth' });
+  }
+
+  embed(url) {
+    if (!url) return '';
+    const m = String(url).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+    const id = m ? m[1] : (/^[A-Za-z0-9_-]{6,}$/.test(String(url).trim()) ? String(url).trim() : '');
+    return id ? 'https://www.youtube-nocookie.com/embed/' + id : '';
+  }
+
+  renderVals() {
+    const p = this.props;
+    const defs = [
+      { num: '01', title: 'Full system walkthrough', blurb: 'Enrolment, the secured dashboard, and each of the three exposure cases in sequence — the fastest way to see what the agent does.', tag: 'OVERVIEW', length: '≈ 6 min', url: p.video1Url },
+      { num: '02', title: 'Authorized user absent', blurb: 'The verified user leaves the desk: windows minimise, the desktop is covered, input is absorbed. The camera lifts it the moment the face returns.', tag: 'ON_USER_ABSENT', length: '≈ 2 min', url: p.video2Url },
+      { num: '03', title: 'Observer detection', blurb: 'A second, unrecognised face held in frame for three seconds raises the alert and writes the audit entry. Flicker never counts.', tag: 'ON_OBSERVER', length: '≈ 2 min', url: p.video3Url },
+      { num: '04', title: 'Intruder detection', blurb: 'An unrecognised face at the machine with no authorized user present — the environment is unsecure, so containment escalates rather than waiting.', tag: 'ON_UNSECURE_ENV', length: '≈ 2 min', url: p.video4Url },
+      { num: '05', title: 'Trusted node lost', blurb: 'Walking the trusted anchor out of range with nobody verified hands the screen to the real Windows lock — credentials only.', tag: 'ON_NODE_LOSS', length: '≈ 2 min', url: p.video5Url },
+    ];
+    const videos = defs.map((v) => {
+      const embed = this.embed(v.url);
+      return Object.assign({}, v, { embed, hasEmbed: !!embed, noEmbed: !embed });
+    });
+
+    const team = [
+      {
+        slot: 'site-face-1',
+        name: p.member1Name ?? 'Rivaldo Fonkou',
+        role: p.member1Role ?? 'FACE RECOGNITION · INTERFACE',
+        blurb: "Owned the face-recognition pipeline end to end — enrolment, continuous verification, and the similarity thresholds and absence timing that govern it — and built the operator interface shown here. Co-designed the system's block-based architecture.",
+        
+        mail: p.member1Email ?? '#',
+        linkedin: p.member1Linkedin ?? '#',
+        resume: p.member1Resume ?? '#',
+      },
+      {
+        slot: 'site-face-2',
+        name: p.member2Name ?? 'HsuMing Chien',
+        role: p.member2Role ?? 'TRUSTED NODE · HARDWARE',
+        blurb: "Owned the trusted-node subsystem end to end — the ESP32 firmware, hardware assembly, and a custom 3D-printed enclosure — and implemented the BLE communication and proximity logic linking the node to the system. Co-designed the system's block-based architecture.",
+        
+        mail: p.member2Email ?? '#',
+        linkedin: p.member2Linkedin ?? '#',
+        resume: p.member2Resume ?? '#',
+      },
+    ];
+
+    return {
+      videos,
+      team,
+      showQr: p.showQr ?? true,
+      posterHref: p.posterHref ?? '#',
+      showArch: this.state.showArch,
+      archLabel: this.state.showArch ? 'HIDE' : 'SHOW MORE',
+      archCaret: this.state.showArch ? '−' : '+',
+      toggleArch: () => this.setState((s) => ({ showArch: !s.showArch })),
+      showMenu: this.state.showMenu,
+      menuIcon: this.state.showMenu
+        ? React.createElement('path', { d: 'M4 4l8 8M12 4l-8 8' })
+        : React.createElement('path', { d: 'M2.5 4.5h11M2.5 8h11M2.5 11.5h11' }),
+      toggleMenu: () => this.setState((s) => ({ showMenu: !s.showMenu })),
+      closeMenu: () => this.setState({ showMenu: false }),
+      showGrid: this.state.showGrid,
+      gridBtnColor: this.state.showGrid ? '#38BDF8' : '#8C92A1',
+      toggleGrid: () => this.setState((s) => ({ showGrid: !s.showGrid })),
+      shotsPrev: () => this.scrollShots(-1),
+      shotsNext: () => this.scrollShots(1),
+    };
+  }
+}
+</script>
+</body>
+</html>

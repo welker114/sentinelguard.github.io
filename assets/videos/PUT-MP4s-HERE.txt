@@ -1,0 +1,6 @@
+Expected filenames (see README §1):
+01-full-walkthrough.mp4
+02-user-absent.mp4
+03-observer.mp4
+04-intruder.mp4
+05-trusted-node-lost.mp4
